@@ -181,9 +181,15 @@ class BeforeAfterSlider {
       setPosition(e.clientX);
     });
 
-    // Touch events
-    this.slider.addEventListener("touchstart", () => {
+    // Touch events on handle and container for easy mobile sliding
+    this.slider.addEventListener("touchstart", (e) => {
       this.isDragging = true;
+      if (e.touches && e.touches[0]) setPosition(e.touches[0].clientX);
+    }, { passive: true });
+
+    this.container.addEventListener("touchstart", (e) => {
+      this.isDragging = true;
+      if (e.touches && e.touches[0]) setPosition(e.touches[0].clientX);
     }, { passive: true });
 
     window.addEventListener("touchend", () => {
@@ -192,7 +198,7 @@ class BeforeAfterSlider {
 
     window.addEventListener("touchmove", (e) => {
       if (!this.isDragging) return;
-      setPosition(e.touches[0].clientX);
+      if (e.touches && e.touches[0]) setPosition(e.touches[0].clientX);
     }, { passive: true });
 
     // Click anywhere on container to move handle

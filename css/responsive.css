@@ -1,243 +1,509 @@
 /**
- * Responsive Styles & Mobile Experience — Valvoro UK Edition
- * Sticky Bottom Action Bar: 📞 Call, 💬 WhatsApp, 📅 Book
+ * Mobile-First Responsive Stylesheet
+ * Optimized for smartphones (320px – 480px), large phones & tablets (481px – 768px),
+ * and desktop screens (> 768px).
+ *
+ * Key Mobile Enhancements:
+ * 1. iOS Auto-Zoom Prevention (16px minimum on all form inputs)
+ * 2. Safe Area Inset Support (env(safe-area-inset-bottom) for iPhone home bar)
+ * 3. Mobile Sticky Bottom Bar with high-contrast tap targets
+ * 4. Full-width touch-friendly button stacks (min-height 48px)
+ * 5. Full-screen Mobile Booking Modal with bottom-action footer
+ * 6. Responsive Before/After slider with touch drag compatibility
+ * 7. Overflow prevention on all cards, badges, and grids
  */
 
 /* ==========================================
-   MOBILE STICKY BOTTOM ACTION BAR
+   TABLET BREAKPOINT (max-width: 1024px)
    ========================================== */
-.mobile-bottom-bar {
-  display: none;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: var(--mobile-bar-height);
-  background: #ffffff;
-  border-top: 2px solid var(--color-primary);
-  box-shadow: 0 -6px 20px rgba(9, 31, 65, 0.14);
-  z-index: var(--z-mobile-bar);
-  padding: 8px 12px;
-}
-
-.mobile-bottom-bar-inner {
-  display: grid;
-  grid-template-columns: 1fr 1.1fr 1.25fr;
-  gap: 8px;
-  height: 100%;
-  align-items: center;
-}
-
-.mobile-bar-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  height: 100%;
-  border-radius: var(--radius-sm);
-  font-weight: 800;
-  font-size: 0.9rem;
-  padding: 0 8px;
-  text-align: center;
-  white-space: nowrap;
-}
-
-.mobile-bar-btn.call-btn {
-  background-color: var(--color-navy);
-  color: #ffffff;
-}
-
-.mobile-bar-btn.whatsapp-btn {
-  background-color: var(--color-whatsapp);
-  color: #ffffff;
-}
-
-.mobile-bar-btn.book-btn {
-  background: linear-gradient(135deg, #FF8D5C 0%, #FF7A45 100%);
-  color: #ffffff;
-  box-shadow: 0 2px 10px rgba(255, 122, 69, 0.35);
-}
-
-/* ==========================================
-   MEDIA QUERIES
-   ========================================== */
-
-/* Tablet & Medium Screens (< 1024px) */
 @media (max-width: 1024px) {
   .top-bar {
     display: none;
   }
 
-  .hero-grid {
+  .cta39_card {
+    grid-template-columns: 1fr;
+    padding: 38px 28px;
+    gap: 36px;
+  }
+
+  .cta39_card h1 {
+    font-size: 2.5rem;
+  }
+
+  .cta39_image-container {
+    max-width: 480px;
+    height: 380px;
+    margin: 0 auto;
+  }
+
+  .stats-counter-bar {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding: 24px 28px;
+  }
+
+  .stat-counter-card:not(:last-child)::after {
+    display: none;
+  }
+
+  .who-we-serve-grid {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .experts-grid {
     grid-template-columns: 1fr;
     gap: 40px;
   }
 
-  .hero-visual-card {
-    max-width: 600px;
-    margin: 0 auto;
-    width: 100%;
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
   }
 
   .footer-grid {
     grid-template-columns: repeat(2, 1fr);
-  }
-
-  .emergency-banner-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .emergency-actions {
-    width: 100%;
-    align-items: center;
+    gap: 36px;
   }
 }
 
-/* Mobile Devices (< 768px) */
+/* ==========================================
+   MOBILE DEVICES (max-width: 768px)
+   ========================================== */
 @media (max-width: 768px) {
+  /* 1. Global & Safe Area Inset */
+  html, body {
+    overflow-x: hidden;
+    width: 100%;
+  }
+
   body {
-    padding-bottom: calc(var(--mobile-bar-height) + 12px);
+    padding-bottom: calc(var(--mobile-bar-height) + env(safe-area-inset-bottom, 0px) + 16px) !important;
   }
 
-  /* Show Mobile Bottom Bar */
-  .mobile-bottom-bar {
-    display: block;
+  .container {
+    padding-left: 18px;
+    padding-right: 18px;
   }
 
-  /* Adjust Header */
-  .header-nav, .header-actions {
-    display: none;
+  .section {
+    padding-top: 56px;
+    padding-bottom: 56px;
+  }
+
+  .section-header {
+    margin-bottom: 34px;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    line-height: 1.22;
+  }
+
+  .section-subtitle {
+    font-size: 1rem;
+  }
+
+  /* 2. Header & Mobile Hamburger */
+  .site-header {
+    height: 68px;
+  }
+
+  .header-nav,
+  .header-phone-box,
+  #headerBookBtn {
+    display: none !important;
   }
 
   .nav-hamburger {
     display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 44px;
+    height: 44px;
+    padding: 8px;
+    border-radius: var(--radius-sm);
+    background-color: var(--color-secondary);
   }
 
-  /* Hero adjustments */
+  /* 3. Hero Section (Pipe Up cta39_card) */
   .hero-section {
-    padding-top: 36px;
-    padding-bottom: 52px;
+    padding: 18px 0 34px;
   }
 
-  .hero-headline {
-    font-size: 2.35rem;
+  .cta39_card {
+    padding: 26px 18px;
+    border-radius: 20px;
+    gap: 28px;
   }
 
-  .hero-subheading {
-    font-size: 1.05rem;
-    margin-bottom: 26px;
+  .cta39_card h1 {
+    font-size: 2.1rem;
+    line-height: 1.2;
+    margin-bottom: 14px;
   }
 
-  .hero-ctas-group {
+  .cta39_card p.hero-desc {
+    font-size: 1rem;
+    line-height: 1.55;
+    margin-bottom: 22px;
+  }
+
+  .cta39_button-group {
     flex-direction: column;
-  }
-
-  .hero-ctas-group .btn {
     width: 100%;
+    gap: 10px;
+    margin-bottom: 22px;
   }
 
-  .hero-trust-indicators {
+  .cta39_button-group .btn {
+    width: 100%;
+    min-height: 50px;
+    font-size: 1rem;
+  }
+
+  .trustpilot-hero-widget {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 14px;
+  }
+
+  .cta39_image-container {
+    width: 100%;
+    max-width: 100%;
+    height: 300px;
+    border-radius: 16px;
+  }
+
+  .cta39_floating-badge {
+    bottom: 12px;
+    left: 12px;
+    right: 12px;
+    padding: 10px 14px;
+  }
+
+  .floating-badge-title {
+    font-size: 0.88rem;
+  }
+
+  .floating-badge-sub {
+    font-size: 0.74rem;
+  }
+
+  /* Quick service checkmark row & price badge */
+  .hero-services-bar {
+    margin-top: 24px;
+    gap: 14px;
+  }
+
+  .services_grid.is-plumbing {
+    gap: 8px;
+  }
+
+  .service-pill-item {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    gap: 6px;
+  }
+
+  .prices-from-wrapper {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.88rem;
+    padding: 8px 16px;
+    text-align: center;
+  }
+
+  /* 4. Stats Counter Bar */
+  .stats-counter-bar {
+    grid-template-columns: repeat(2, 1fr);
+    margin: 18px auto 36px;
+    padding: 20px 14px;
+    gap: 16px;
+    border-radius: 18px;
+  }
+
+  .stat-number-wrap {
+    font-size: 1.75rem;
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+  }
+
+  /* 5. "Who We Serve" Section */
+  .who-we-serve-card {
+    border-radius: 18px;
+  }
+
+  .who-we-serve-img-wrap {
+    height: 190px;
+  }
+
+  .who-we-serve-body {
+    padding: 20px 18px;
+  }
+
+  .who-we-serve-title {
+    font-size: 1.25rem;
+  }
+
+  .who-we-serve-desc {
+    font-size: 0.92rem;
+    margin-bottom: 16px;
+  }
+
+  .who-we-serve-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .who-we-serve-footer .btn-card-book {
+    width: 100%;
+    min-height: 44px;
+    text-align: center;
+    justify-content: center;
+  }
+
+  /* 6. "Your Local Plumbing Experts" */
+  .experts-feature-list {
     grid-template-columns: 1fr;
-    gap: 12px;
+    gap: 16px;
+    margin: 24px 0;
   }
 
-  /* Section Titles */
-  .section {
-    padding-top: 60px;
-    padding-bottom: 60px;
+  .expert-icon-box {
+    width: 42px;
+    height: 42px;
+    font-size: 1.25rem;
   }
 
-  .section-title {
-    font-size: 1.95rem;
+  .expert-feature-title {
+    font-size: 1rem;
   }
 
-  /* Assistant Responsive */
+  .expert-feature-desc {
+    font-size: 0.88rem;
+  }
+
+  .experts-image-wrap {
+    height: 280px;
+    border-radius: 18px;
+  }
+
+  /* Prevent negative margin from creating horizontal scroll */
+  .experts-floating-card {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin-top: 14px;
+    width: 100%;
+    padding: 14px 18px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* 7. Plumbing Assistant on Mobile */
+  .assistant-card {
+    border-radius: 18px;
+  }
+
+  .assistant-header {
+    padding: 22px 18px;
+  }
+
+  .assistant-title {
+    font-size: 1.45rem;
+  }
+
+  .assistant-subtitle {
+    font-size: 0.92rem;
+  }
+
   .assistant-chat-window {
-    padding: 20px;
-    min-height: 360px;
+    padding: 18px 12px;
+    min-height: 280px;
+    max-height: 460px;
+    gap: 16px;
   }
 
   .chat-bubble {
     max-width: 96%;
+    gap: 10px;
   }
 
-  .assistant-options-grid {
-    grid-template-columns: 1fr;
+  .chat-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 1.15rem;
+  }
+
+  .chat-body {
+    padding: 14px 16px;
+    border-radius: 14px;
+  }
+
+  .chat-text {
+    font-size: 0.98rem;
+  }
+
+  .assistant-opt-btn {
+    padding: 14px 16px;
+    font-size: 0.92rem;
+    min-height: 48px;
+  }
+
+  .assistant-result-card {
+    padding: 20px 16px;
+    border-radius: 16px;
   }
 
   .result-actions {
     flex-direction: column;
+    gap: 10px;
   }
 
   .result-actions .btn {
     width: 100%;
+    min-height: 48px;
   }
 
-  /* Booking Modal Mobile Adaptation */
-  .booking-modal-dialog {
-    max-height: 95vh;
-    border-radius: var(--radius-md);
-  }
-
-  .booking-modal-header {
-    padding: 18px 20px;
-  }
-
-  .booking-modal-body {
-    padding: 22px 18px;
-  }
-
-  .services-select-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .customer-form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .conf-details-card {
-    grid-template-columns: 1fr;
-  }
-
-  .step-nav-footer {
-    flex-direction: column-reverse;
-  }
-
-  .step-nav-footer .btn {
-    width: 100%;
-  }
-
-  /* Service Detail Modal */
-  .service-modal-columns {
-    grid-template-columns: 1fr;
-  }
-
-  .service-modal-actions {
+  .assistant-footer {
+    padding: 14px 18px;
     flex-direction: column;
+    gap: 10px;
+    text-align: center;
   }
 
-  .service-modal-actions .btn {
+  /* 8. 11 Services Grid on Mobile */
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .service-card {
+    border-radius: 18px;
+  }
+
+  .service-card-body {
+    padding: 20px 18px;
+  }
+
+  .service-card-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .service-card-footer .btn-card-book {
     width: 100%;
+    min-height: 44px;
+    text-align: center;
+    justify-content: center;
   }
 
-  /* Floating Help Widget Mobile Positioning */
-  .floating-help-widget {
-    bottom: calc(var(--mobile-bar-height) + 16px);
-    right: 16px;
+  /* 9. Before / After Comparison Slider */
+  .slider-container {
+    height: 280px;
+    border-radius: 18px;
+    touch-action: none;
   }
 
-  .floating-help-trigger {
-    padding: 11px 18px;
+  .slider-handle-button {
+    width: 38px;
+    height: 38px;
     font-size: 0.85rem;
   }
 
-  .floating-help-drawer {
-    width: calc(100vw - 32px);
-    right: -8px;
+  .slider-badge {
+    padding: 4px 10px;
+    font-size: 0.72rem;
+    top: 14px;
   }
 
-  /* Footer */
+  /* 10. "Real People. Real Results" Testimonials */
+  .tp-large-card {
+    padding: 24px 18px;
+    border-radius: 18px;
+  }
+
+  .tp-score-headline {
+    font-size: 2.1rem;
+  }
+
+  .testimonial-quote-card {
+    padding: 20px 18px;
+    border-radius: 16px;
+  }
+
+  .t-quote-text {
+    font-size: 0.95rem;
+  }
+
+  /* 11. Full-Width Dark Emergency Banner */
+  .dark-cta-banner {
+    padding: 40px 20px;
+    border-radius: 20px;
+  }
+
+  .dark-cta-title {
+    font-size: 1.85rem;
+    line-height: 1.25;
+  }
+
+  .dark-cta-subtitle {
+    font-size: 0.98rem;
+    margin-bottom: 24px;
+  }
+
+  .dark-cta-buttons {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+
+  .dark-cta-buttons .btn {
+    width: 100%;
+    min-height: 50px;
+  }
+
+  /* 12. Accordion FAQ */
+  .pipeup-question {
+    padding: 18px 18px;
+    font-size: 1.02rem;
+  }
+
+  .pipeup-chevron {
+    width: 24px;
+    height: 24px;
+    font-size: 0.9rem;
+  }
+
+  .pipeup-answer {
+    padding: 0 18px;
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .pipeup-accordion-item.active .pipeup-answer {
+    padding-bottom: 18px;
+  }
+
+  /* 13. Service Areas */
+  .postcode-pills-container {
+    gap: 8px;
+  }
+
+  .postcode-pill {
+    padding: 7px 14px;
+    font-size: 0.82rem;
+  }
+
+  /* 14. Footer */
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 32px;
@@ -245,30 +511,255 @@
 
   .footer-bottom {
     flex-direction: column;
-    gap: 14px;
+    gap: 12px;
     text-align: center;
+    font-size: 0.8rem;
+  }
+
+  /* 15. Mobile Sticky Bottom Action Bar */
+  .mobile-action-bar {
+    display: flex !important;
+    padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+    height: calc(var(--mobile-bar-height) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .mobile-action-btn {
+    min-height: 48px;
+    font-size: 0.85rem;
+    border-radius: var(--radius-sm);
+  }
+
+  /* 16. Floating Help Widget */
+  .floating-help-widget {
+    bottom: calc(var(--mobile-bar-height) + env(safe-area-inset-bottom, 0px) + 12px);
+    right: 14px;
+  }
+
+  .floating-help-trigger {
+    padding: 10px 16px;
+    font-size: 0.82rem;
+  }
+
+  .floating-help-drawer {
+    width: calc(100vw - 28px);
+    right: -4px;
+    border-radius: 18px;
+  }
+
+  /* 17. 7-Step Interactive Booking Modal (Full-Screen on Mobile) */
+  .modal-backdrop {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .booking-modal-dialog {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    margin: 0;
+  }
+
+  .booking-modal-header {
+    padding: 16px 18px 14px;
+  }
+
+  .booking-header-title {
+    font-size: 1.1rem;
+  }
+
+  .booking-step-counter {
+    font-size: 0.78rem;
+    padding: 3px 10px;
+  }
+
+  .booking-modal-body {
+    padding: 18px 16px 28px;
+    max-height: calc(100vh - 105px);
+  }
+
+  .step-header {
+    margin-bottom: 20px;
+  }
+
+  .step-title {
+    font-size: 1.35rem;
+  }
+
+  .step-desc {
+    font-size: 0.88rem;
+  }
+
+  .services-choice-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .service-choice-card {
+    padding: 14px 16px;
+    border-radius: 12px;
+  }
+
+  .service-choice-title {
+    font-size: 1rem;
+  }
+
+  .urgency-choice-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .urgency-choice-item {
+    padding: 14px 16px;
+  }
+
+  /* 3-column date cards so they fit phone screens with zero squeeze */
+  .calendar-date-cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .date-card {
+    padding: 12px 6px;
+    border-radius: 10px;
+  }
+
+  .date-day-name {
+    font-size: 0.72rem;
+  }
+
+  .date-number {
+    font-size: 1.35rem;
+    margin: 2px 0;
+  }
+
+  .date-month {
+    font-size: 0.7rem;
+  }
+
+  .time-slots-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .slot-pill {
+    padding: 14px 16px;
+    min-height: 48px;
+  }
+
+  .customer-form-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  /* Minimum 16px font size on inputs to prevent iOS automatic zoom */
+  .form-input,
+  .form-textarea {
+    font-size: 16px !important;
+    padding: 12px 14px;
+  }
+
+  .postcode-field-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .postcode-field-row .btn {
+    width: 100%;
+    min-height: 48px;
+  }
+
+  .conf-details-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .step-nav-footer {
+    flex-direction: column-reverse;
+    gap: 10px;
+    margin-top: 26px;
+    padding-top: 18px;
+  }
+
+  .step-nav-footer .btn {
+    width: 100%;
+    min-height: 48px;
+    font-size: 0.98rem;
+  }
+
+  /* 18. Service Detail Modal on Mobile */
+  .modal-dialog {
+    max-width: 100%;
+    max-height: 94vh;
+    padding: 24px 18px;
+    border-radius: 20px 20px 0 0;
+    margin: 0;
+  }
+
+  .service-modal-header {
+    gap: 12px;
+  }
+
+  .service-modal-icon-badge {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  .service-modal-title {
+    font-size: 1.3rem;
+  }
+
+  .service-modal-img {
+    height: 180px;
+  }
+
+  .service-signs-list {
+    grid-template-columns: 1fr;
+  }
+
+  .service-modal-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .service-modal-actions .btn {
+    width: 100%;
+    min-height: 48px;
   }
 }
 
-/* Small Screens (< 480px) */
-@media (max-width: 480px) {
-  .hero-headline {
-    font-size: 2rem;
+/* ==========================================
+   EXTRA COMPACT SCREENS (max-width: 380px)
+   e.g. iPhone SE, smaller Android devices
+   ========================================== */
+@media (max-width: 380px) {
+  .cta39_card h1 {
+    font-size: 1.8rem;
   }
 
   .section-title {
-    font-size: 1.65rem;
+    font-size: 1.75rem;
+  }
+
+  .stats-counter-bar {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 16px 12px;
+  }
+
+  .stat-number-wrap {
+    font-size: 1.5rem;
   }
 
   .calendar-date-cards {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  .slots-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .modal-dialog {
-    padding: 24px 16px;
+  .mobile-action-btn {
+    font-size: 0.8rem;
+    padding: 0 4px;
   }
 }
