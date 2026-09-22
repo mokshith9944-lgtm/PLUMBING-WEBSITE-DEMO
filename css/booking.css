@@ -1,0 +1,754 @@
+/**
+ * 7-Step Interactive Booking System Styles
+ */
+
+.booking-modal-dialog {
+  max-width: 780px;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-modal-header {
+  padding: 24px 32px 18px;
+  background-color: var(--color-secondary);
+  border-bottom: 1px solid var(--color-border);
+  position: relative;
+}
+
+.booking-header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.booking-header-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.booking-step-counter {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  background-color: var(--color-accent-light);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+}
+
+.booking-progress-track {
+  width: 100%;
+  height: 6px;
+  background-color: var(--color-border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.booking-progress-bar {
+  height: 100%;
+  width: 14.28%;
+  background: linear-gradient(90deg, #f97316 0%, #ea580c 100%);
+  border-radius: var(--radius-full);
+  transition: width 0.3s ease;
+}
+
+.booking-modal-body {
+  padding: 32px;
+  max-height: calc(85vh - 120px);
+  overflow-y: auto;
+}
+
+.step-header {
+  margin-bottom: 24px;
+}
+
+.step-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 6px;
+}
+
+.step-desc {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+}
+
+.step-nav-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+}
+
+.step-note {
+  font-size: 0.85rem;
+  color: var(--color-text-light);
+}
+
+/* ==========================================
+   STEP 1: SERVICES SELECTION GRID
+   ========================================== */
+.services-select-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  max-height: 400px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.service-choice-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background-color: #ffffff;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.service-choice-card:hover {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-light);
+}
+
+.service-choice-card.selected {
+  border-color: var(--color-accent);
+  background-color: #fffaf5;
+  box-shadow: 0 0 0 2px rgba(234, 88, 12, 0.2);
+}
+
+.service-choice-icon {
+  font-size: 1.75rem;
+  flex-shrink: 0;
+}
+
+.service-choice-info {
+  flex-grow: 1;
+}
+
+.service-choice-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.service-choice-desc {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  line-height: 1.3;
+  margin-top: 2px;
+}
+
+.service-choice-check {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border-dark);
+  color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.service-choice-card.selected .service-choice-check {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+  color: #ffffff;
+}
+
+/* ==========================================
+   STEP 2: URGENCY SELECT LIST
+   ========================================== */
+.urgency-select-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.urgency-choice-item {
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background-color: #ffffff;
+}
+
+.urgency-choice-item:hover {
+  border-color: var(--color-primary-light);
+  background-color: var(--color-secondary);
+}
+
+.urgency-choice-item.selected {
+  border-color: var(--color-accent);
+  background-color: #fffaf5;
+}
+
+.urgency-choice-item.is-emergency-opt.selected {
+  border-color: var(--color-danger);
+  background-color: var(--color-danger-light);
+}
+
+.urgency-choice-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.urgency-choice-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.urgency-choice-radio {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border-dark);
+}
+
+.urgency-choice-item.selected .urgency-choice-radio {
+  border-color: var(--color-accent);
+  background: radial-gradient(circle, var(--color-accent) 40%, transparent 45%);
+}
+
+.urgency-choice-item.is-emergency-opt.selected .urgency-choice-radio {
+  border-color: var(--color-danger);
+  background: radial-gradient(circle, var(--color-danger) 40%, transparent 45%);
+}
+
+.urgency-choice-note {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.emergency-alert-banner {
+  display: flex;
+  gap: 14px;
+  background-color: var(--color-danger-light);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  padding: 18px;
+  border-radius: var(--radius-md);
+  margin-bottom: 20px;
+}
+
+.emergency-alert-banner .alert-icon {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.emergency-alert-banner p {
+  font-size: 0.9rem;
+  color: #991b1b;
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+
+/* ==========================================
+   STEP 3: CALENDAR DATE PICKER
+   ========================================== */
+.calendar-picker-wrapper {
+  margin-bottom: 20px;
+}
+
+.calendar-hint {
+  display: flex;
+  gap: 16px;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 14px;
+}
+
+.calendar-date-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 10px;
+}
+
+.date-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 10px;
+  background: #ffffff;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.date-card:hover:not(.disabled) {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-light);
+}
+
+.date-card.selected {
+  border-color: var(--color-accent);
+  background-color: #fffaf5;
+  box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2);
+}
+
+.date-card.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background-color: var(--color-secondary);
+}
+
+.date-day-name {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.date-number {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin: 4px 0;
+}
+
+.date-month {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+}
+
+.date-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-top: 6px;
+}
+
+.date-status-dot.available {
+  background-color: var(--color-success);
+}
+
+.date-status-dot.unavailable {
+  background-color: var(--color-text-light);
+}
+
+.selected-date-preview {
+  padding: 12px 16px;
+  background-color: var(--color-secondary);
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  color: var(--color-primary);
+  text-align: center;
+}
+
+/* ==========================================
+   STEP 4: TIME SLOTS
+   ========================================== */
+.slots-meta-bar {
+  margin-bottom: 16px;
+}
+
+.slots-backend-notice {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  background: var(--color-secondary);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  display: inline-block;
+}
+
+.slots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
+}
+
+.slot-pill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 10px;
+  background: #ffffff;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.slot-pill:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-light);
+}
+
+.slot-pill.selected {
+  border-color: var(--color-accent);
+  background-color: #fffaf5;
+  box-shadow: 0 0 0 2px rgba(234, 88, 12, 0.2);
+}
+
+.slot-pill:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  background-color: var(--color-secondary);
+  border-style: dashed;
+}
+
+.slot-time {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.slot-period {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+/* ==========================================
+   STEP 5: CUSTOMER DETAILS FORM
+   ========================================== */
+.customer-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-group label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.form-group .required {
+  color: var(--color-danger);
+}
+
+.form-input, .form-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: #ffffff;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  transition: border-color var(--transition-fast);
+}
+
+.form-input:focus, .form-textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.form-input.input-error, .form-textarea.input-error {
+  border-color: var(--color-danger);
+  background-color: #fffbfb;
+}
+
+.form-error-msg {
+  display: none;
+  font-size: 0.8rem;
+  color: var(--color-danger);
+  font-weight: 600;
+}
+
+.contact-method-options {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.radio-chip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: #ffffff;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.radio-chip input[type="radio"] {
+  display: none;
+}
+
+.radio-chip:hover {
+  border-color: var(--color-accent);
+}
+
+.radio-chip.selected {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent-light);
+  color: var(--color-accent);
+}
+
+/* ==========================================
+   STEP 6: PHOTO UPLOAD ZONE
+   ========================================== */
+.photo-upload-zone {
+  border: 2px dashed var(--color-border-dark);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  text-align: center;
+  background-color: var(--color-secondary);
+  position: relative;
+  transition: border-color var(--transition-fast);
+}
+
+.photo-upload-zone:hover {
+  border-color: var(--color-accent);
+}
+
+.photo-file-hidden {
+  display: none;
+}
+
+.upload-placeholder {
+  cursor: pointer;
+}
+
+.upload-icon {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.upload-hint {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  display: block;
+  margin-top: 4px;
+}
+
+.photo-preview-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+}
+
+.photo-preview-box img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+
+.photo-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.btn-remove-photo {
+  color: var(--color-danger);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+/* ==========================================
+   STEP 7: SUMMARY CARD
+   ========================================== */
+.summary-card {
+  background-color: var(--color-secondary);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.summary-row.full {
+  flex-direction: column;
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.summary-label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.summary-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-align: right;
+}
+
+.summary-value.highlight {
+  color: var(--color-accent);
+  font-weight: 800;
+}
+
+.summary-thumb-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.summary-thumb {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+}
+
+.backend-disclaimer-box {
+  background-color: #f0f9ff;
+  border: 1px solid #bae6fd;
+  color: #0369a1;
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+/* ==========================================
+   CONFIRMATION SCREEN
+   ========================================== */
+.booking-confirmation-pane {
+  text-align: center;
+  padding: 20px 0;
+}
+
+.conf-badge {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 700;
+  background-color: var(--color-success-light);
+  color: #065f46;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  margin-bottom: 16px;
+}
+
+.conf-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin-bottom: 8px;
+}
+
+.conf-subtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  margin-bottom: 24px;
+}
+
+.conf-ref-box {
+  background: var(--color-secondary);
+  border: 2px dashed var(--color-border-dark);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 28px;
+  min-width: 240px;
+}
+
+.ref-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.ref-code {
+  font-family: monospace;
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--color-accent);
+  letter-spacing: 0.08em;
+}
+
+.conf-details-card {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.conf-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.conf-icon {
+  font-size: 1.5rem;
+}
+
+.conf-meta {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.conf-notice {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  max-width: 540px;
+  margin: 0 auto 28px;
+  line-height: 1.5;
+}
+
+.conf-action-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}

@@ -1,0 +1,9 @@
+# Dependencies and temporary files
+.DS_Store
+Thumbs.db
+node_modules/
+.vercel
+*.log
+.env
+.env.local
+.env.*.local
