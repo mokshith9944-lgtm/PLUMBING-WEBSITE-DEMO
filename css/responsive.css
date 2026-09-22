@@ -1,5 +1,5 @@
 /**
- * Responsive Styles & Mobile Experience
+ * Responsive Styles & Mobile Experience — Valvoro UK Edition
  * Sticky Bottom Action Bar: 📞 Call, 💬 WhatsApp, 📅 Book
  */
 
@@ -14,15 +14,15 @@
   width: 100%;
   height: var(--mobile-bar-height);
   background: #ffffff;
-  border-top: 1px solid var(--color-border);
-  box-shadow: 0 -4px 16px rgba(15, 23, 42, 0.12);
+  border-top: 2px solid var(--color-primary);
+  box-shadow: 0 -6px 20px rgba(9, 31, 65, 0.14);
   z-index: var(--z-mobile-bar);
   padding: 8px 12px;
 }
 
 .mobile-bottom-bar-inner {
   display: grid;
-  grid-template-columns: 1fr 1.1fr 1.2fr;
+  grid-template-columns: 1fr 1.1fr 1.25fr;
   gap: 8px;
   height: 100%;
   align-items: center;
@@ -35,7 +35,7 @@
   gap: 6px;
   height: 100%;
   border-radius: var(--radius-sm);
-  font-weight: 700;
+  font-weight: 800;
   font-size: 0.9rem;
   padding: 0 8px;
   text-align: center;
@@ -43,9 +43,8 @@
 }
 
 .mobile-bar-btn.call-btn {
-  background-color: var(--color-secondary-alt);
-  color: var(--color-primary);
-  border: 1px solid var(--color-border);
+  background-color: var(--color-navy);
+  color: #ffffff;
 }
 
 .mobile-bar-btn.whatsapp-btn {
@@ -54,17 +53,21 @@
 }
 
 .mobile-bar-btn.book-btn {
-  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  background: linear-gradient(135deg, #FF8D5C 0%, #FF7A45 100%);
   color: #ffffff;
-  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.3);
+  box-shadow: 0 2px 10px rgba(255, 122, 69, 0.35);
 }
 
 /* ==========================================
    MEDIA QUERIES
    ========================================== */
 
-/* Tablet & Smaller (< 1024px) */
+/* Tablet & Medium Screens (< 1024px) */
 @media (max-width: 1024px) {
+  .top-bar {
+    display: none;
+  }
+
   .hero-grid {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -94,7 +97,7 @@
 /* Mobile Devices (< 768px) */
 @media (max-width: 768px) {
   body {
-    padding-bottom: calc(var(--mobile-bar-height) + 10px);
+    padding-bottom: calc(var(--mobile-bar-height) + 12px);
   }
 
   /* Show Mobile Bottom Bar */
@@ -114,16 +117,16 @@
   /* Hero adjustments */
   .hero-section {
     padding-top: 36px;
-    padding-bottom: 48px;
+    padding-bottom: 52px;
   }
 
   .hero-headline {
-    font-size: 2.25rem;
+    font-size: 2.35rem;
   }
 
   .hero-subheading {
     font-size: 1.05rem;
-    margin-bottom: 24px;
+    margin-bottom: 26px;
   }
 
   .hero-ctas-group {
@@ -136,22 +139,22 @@
 
   .hero-trust-indicators {
     grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 12px;
   }
 
   /* Section Titles */
   .section {
-    padding-top: 56px;
-    padding-bottom: 56px;
+    padding-top: 60px;
+    padding-bottom: 60px;
   }
 
   .section-title {
-    font-size: 1.85rem;
+    font-size: 1.95rem;
   }
 
   /* Assistant Responsive */
   .assistant-chat-window {
-    padding: 18px;
+    padding: 20px;
     min-height: 360px;
   }
 
@@ -178,11 +181,11 @@
   }
 
   .booking-modal-header {
-    padding: 16px 20px;
+    padding: 18px 20px;
   }
 
   .booking-modal-body {
-    padding: 20px 16px;
+    padding: 22px 18px;
   }
 
   .services-select-grid {
@@ -225,7 +228,7 @@
   }
 
   .floating-help-trigger {
-    padding: 10px 16px;
+    padding: 11px 18px;
     font-size: 0.85rem;
   }
 
@@ -237,12 +240,12 @@
   /* Footer */
   .footer-grid {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 32px;
   }
 
   .footer-bottom {
     flex-direction: column;
-    gap: 12px;
+    gap: 14px;
     text-align: center;
   }
 }
@@ -250,11 +253,11 @@
 /* Small Screens (< 480px) */
 @media (max-width: 480px) {
   .hero-headline {
-    font-size: 1.95rem;
+    font-size: 2rem;
   }
 
   .section-title {
-    font-size: 1.6rem;
+    font-size: 1.65rem;
   }
 
   .calendar-date-cards {

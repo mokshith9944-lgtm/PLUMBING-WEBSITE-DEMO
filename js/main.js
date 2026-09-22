@@ -1,11 +1,11 @@
 /**
- * Main Application Orchestrator
+ * Main Application Orchestrator — Valvoro UK Edition
  * Coordinates config hydration, responsive navigation, sticky header,
  * mobile action bar, CTA buttons, and initializes all modules.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Hydrate DOM elements with centralized config
+  // 1. Hydrate DOM elements with centralized UK config
   hydrateSiteConfig();
 
   // 2. Setup Sticky Navigation & Mobile Hamburger
@@ -59,17 +59,17 @@ function hydrateSiteConfig() {
 
   // Replace dynamic WhatsApp links
   document.querySelectorAll(".dynamic-whatsapp-link").forEach((link) => {
-    const defaultMsg = encodeURIComponent(`Hi ${SITE_CONFIG.COMPANY_NAME || "Team"},\nI would like to inquire about plumbing services in ${SITE_CONFIG.CITY}.`);
+    const defaultMsg = encodeURIComponent(`Hi ${SITE_CONFIG.COMPANY_NAME || "Valvoro Team"},\nI would like to inquire about plumbing services in ${SITE_CONFIG.CITY}.`);
     link.href = `https://wa.me/${SITE_CONFIG.WHATSAPP_NUMBER}?text=${defaultMsg}`;
     link.addEventListener("click", () => {
       if (window.trackEvent) window.trackEvent("whatsapp_click", { location: link.getAttribute("data-track-loc") || "general" });
     });
   });
 
-  // Render Service Cards in Grid dynamically if container exists
+  // Render Service Cards in Grid
   renderServicesGrid();
 
-  // Render Service Areas
+  // Render UK Postcode Service Areas
   renderServiceAreas();
 }
 
@@ -99,10 +99,10 @@ function renderServicesGrid() {
 
       <div class="service-card-footer">
         <button type="button" class="service-explore-btn">
-          Explore Details & Signs →
+          Details & Signs →
         </button>
         <button type="button" class="btn-card-book" data-service-book="${srv.id}">
-          Book Now
+          Book Plumber
         </button>
       </div>
     `;
@@ -125,7 +125,7 @@ function renderServicesGrid() {
 }
 
 /**
- * Renders service area pills
+ * Renders UK service area pills with Postcodes
  */
 function renderServiceAreas() {
   const container = document.getElementById("serviceAreasContainer");
@@ -142,7 +142,7 @@ function renderServiceAreas() {
         <strong class="area-title">${area.name}</strong>
         <span class="area-note">${area.note}</span>
       </div>
-      <span class="area-check">✓ Active</span>
+      <span class="area-check">✓ UK Coverage</span>
     `;
     container.appendChild(pill);
   });
@@ -158,7 +158,6 @@ function setupNavigation() {
   const mobileOverlay = document.getElementById("mobileNavOverlay");
   const closeNavBtn = document.getElementById("closeMobileNavBtn");
 
-  // Sticky header shadow on scroll
   window.addEventListener("scroll", () => {
     if (window.scrollY > 20) {
       header.classList.add("scrolled");
@@ -187,7 +186,6 @@ function setupNavigation() {
     mobileOverlay.addEventListener("click", () => toggleMobileNav(false));
   }
 
-  // Close mobile nav when clicking a link
   document.querySelectorAll(".mobile-nav-link").forEach((link) => {
     link.addEventListener("click", () => toggleMobileNav(false));
   });
@@ -216,7 +214,7 @@ function setupActionTriggers() {
     });
   }
 
-  // Header "Book Now" button
+  // Header "Book a Plumber" CTA button
   const headerBookBtn = document.getElementById("headerBookBtn");
   if (headerBookBtn) {
     headerBookBtn.addEventListener("click", () => {

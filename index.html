@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>[COMPANY_NAME] | Expert Plumbing Services in [CITY]</title>
-  <meta name="description" content="Fast, reliable plumbing, emergency repairs, drain cleaning, and water heater service for homes and businesses in [CITY]. Book online or chat with our diagnostic assistant.">
-  <meta name="keywords" content="plumber in [CITY], emergency plumber [CITY], plumbing services [CITY], drain cleaning [CITY], leak repair [CITY], water heater repair [CITY]">
+  <title>[COMPANY_NAME] | Certified UK Plumbers & Emergency Heating Services</title>
+  <meta name="description" content="Fast, reliable local UK plumbers for homes and businesses in [CITY]. 24/7 emergency plumber, boiler repairs, blocked drains, leak detection. Get a quote or book online.">
+  <meta name="keywords" content="plumber in [CITY], emergency plumber [CITY], plumbing services [CITY], drain cleaning [CITY], leak repair [CITY], boiler repair [CITY], UK plumber postcode">
   
   <!-- Open Graph / Social Metadata -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="[COMPANY_NAME] | Professional Plumbing Services in [CITY]">
-  <meta property="og:description" content="Plumbing problems? Get rapid repairs, transparent pricing, and instant diagnostic guidance in [CITY].">
-  <meta property="og:url" content="https://plumbing-solutions.vercel.app">
+  <meta property="og:title" content="[COMPANY_NAME] | Expert UK Plumbers & Emergency Heating">
+  <meta property="og:description" content="Plumbing or boiler breakdown in the UK? Fast response, transparent GBP (£) pricing, and instant rule-based diagnostic guidance.">
+  <meta property="og:url" content="https://plumbing-website-demo-ten.vercel.app">
   
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔧</text></svg>">
 
-  <!-- Stylesheets -->
+  <!-- Valvoro Design System Stylesheets -->
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
@@ -24,16 +24,22 @@
   <link rel="stylesheet" href="css/booking.css">
   <link rel="stylesheet" href="css/responsive.css">
 
-  <!-- LocalBusiness Schema.org Structured Data -->
+  <!-- LocalBusiness Schema.org Structured Data (United Kingdom) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Plumber",
     "name": "[COMPANY_NAME]",
-    "description": "Licensed plumbing, leak detection, drain unblocking, and emergency repair services in [CITY].",
+    "description": "Certified UK plumbing, boiler repairs, drain unblocking, and 24/7 emergency services across [CITY] and surrounding postcodes.",
     "telephone": "[PHONE_NUMBER]",
-    "email": "contact@[company].com",
-    "priceRange": "$$",
+    "email": "enquiries@[company].co.uk",
+    "priceRange": "££",
+    "currenciesAccepted": "GBP",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "GB",
+      "addressLocality": "[CITY]"
+    },
     "areaServed": [
       { "@type": "AdministrativeArea", "name": "[CITY]" },
       { "@type": "AdministrativeArea", "name": "[AREA 1]" },
@@ -45,7 +51,7 @@
       {
         "@type": "OpeningHoursSpecification",
         "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        "opens": "07:00",
+        "opens": "07:30",
         "closes": "19:00"
       },
       {
@@ -59,13 +65,29 @@
         "dayOfWeek": ["Sunday"],
         "opens": "00:00",
         "closes": "23:59",
-        "description": "Emergency on-call service only"
+        "description": "24/7 Emergency Plumber On-Call Service across the UK"
       }
     ]
   }
   </script>
 </head>
 <body>
+
+  <!-- ==========================================
+       TOP INFO BAR (Valvoro UK Style)
+       ========================================== -->
+  <div class="top-bar">
+    <div class="container top-bar-container">
+      <div class="top-bar-left">
+        <span class="top-bar-item">🇬🇧 <strong>UK Local Plumbers</strong> • Covering <span data-config-text="CITY">[CITY]</span> & Nearby Postcodes</span>
+        <span class="top-bar-item">⏱️ Mon – Sat: 07:30 – 19:00</span>
+      </div>
+      <div class="top-bar-right">
+        <span class="top-bar-badge">24/7 Emergency Plumber</span>
+        <a href="tel:[PHONE_NUMBER]" style="color: #ffffff; font-weight: 700;">📞 Direct Line: <span data-display-phone>[PHONE_NUMBER]</span></a>
+      </div>
+    </div>
+  </div>
 
   <!-- ==========================================
        1. STICKY RESPONSIVE HEADER
@@ -82,20 +104,25 @@
         <a href="#hero" class="nav-link">Home</a>
         <a href="#assistantSection" class="nav-link">Plumbing Assistant</a>
         <a href="#services" class="nav-link">Services</a>
-        <a href="#beforeAfter" class="nav-link">Before / After</a>
+        <a href="#beforeAfter" class="nav-link">Before & After</a>
         <a href="#reviews" class="nav-link">Reviews</a>
-        <a href="#serviceAreas" class="nav-link">Service Areas</a>
+        <a href="#serviceAreas" class="nav-link">UK Postcodes</a>
         <a href="#faq" class="nav-link">FAQ</a>
         <a href="#contact" class="nav-link">Contact</a>
       </nav>
 
       <!-- Desktop Header Actions -->
       <div class="header-actions">
-        <a href="tel:[PHONE_NUMBER]" class="header-phone-link" data-track-loc="header_phone">
-          <span>📞</span>
-          <span data-display-phone>[PHONE_NUMBER]</span>
-        </a>
-        <button type="button" class="btn btn-primary" id="headerBookBtn">
+        <div class="header-phone-box">
+          <div class="header-phone-icon">📞</div>
+          <div class="header-phone-meta">
+            <span class="phone-subtitle">24/7 Emergency Plumber</span>
+            <a href="tel:[PHONE_NUMBER]" class="header-phone-link" data-track-loc="header_phone">
+              <span data-display-phone>[PHONE_NUMBER]</span>
+            </a>
+          </div>
+        </div>
+        <button type="button" class="btn btn-cta" id="headerBookBtn">
           Book a Plumber
         </button>
       </div>
@@ -126,12 +153,15 @@
       <a href="#services" class="mobile-nav-link">Services</a>
       <a href="#beforeAfter" class="mobile-nav-link">Before & After</a>
       <a href="#reviews" class="mobile-nav-link">Reviews</a>
-      <a href="#serviceAreas" class="mobile-nav-link">Service Areas</a>
+      <a href="#serviceAreas" class="mobile-nav-link">UK Postcodes</a>
       <a href="#faq" class="mobile-nav-link">FAQ</a>
       <a href="#contact" class="mobile-nav-link">Contact</a>
     </nav>
 
     <div class="mobile-nav-footer">
+      <button type="button" class="btn btn-cta" onclick="if(window.openBookingModal) window.openBookingModal()" style="width: 100%;">
+        📅 Book a Plumber
+      </button>
       <a href="tel:[PHONE_NUMBER]" class="btn btn-outline" style="width: 100%;">
         📞 Call [PHONE_NUMBER]
       </a>
@@ -143,26 +173,26 @@
 
   <main>
     <!-- ==========================================
-         2. HERO SECTION
+         2. HERO SECTION (Valvoro Style)
          ========================================== -->
     <section class="hero-section" id="hero">
       <div class="container hero-grid">
         <div class="hero-content">
           <div class="hero-badge">
             <span class="pulse-dot"></span>
-            <span>Local Plumbers Ready to Dispatch</span>
+            <span>Certified UK Plumbers Ready to Dispatch</span>
           </div>
 
           <h1 class="hero-headline">
-            Plumbing Problems? We'll Help You Fix Them.
+            Plumbing Problems? <span class="highlight-cyan">We'll Help You Fix Them.</span>
           </h1>
 
           <p class="hero-subheading">
-            Fast, reliable plumbing services for homes and businesses in <strong data-config-text="CITY">[CITY]</strong>.
+            Fast, reliable plumbing and heating services for homes and businesses across <strong data-config-text="CITY">[CITY]</strong> and surrounding UK postcodes.
           </p>
 
           <div class="hero-ctas-group">
-            <button type="button" class="btn btn-primary btn-cta" id="heroBookBtn">
+            <button type="button" class="btn btn-cta" id="heroBookBtn">
               📅 Book a Plumber
             </button>
             <button type="button" class="btn btn-secondary" id="heroAssistantBtn">
@@ -180,7 +210,7 @@
             </div>
             <div class="trust-item">
               <span class="trust-check">✓</span>
-              <span>Transparent Pricing</span>
+              <span>Transparent Pricing (£)</span>
             </div>
             <div class="trust-item">
               <span class="trust-check">✓</span>
@@ -188,38 +218,38 @@
             </div>
             <div class="trust-item">
               <span class="trust-check">✓</span>
-              <span>Local Plumbers</span>
+              <span>Local UK Plumbers</span>
             </div>
           </div>
         </div>
 
-        <!-- Hero Side Interactive Callout Card -->
+        <!-- Hero Side Quick Triage Card -->
         <div class="hero-visual-card">
           <div class="hero-card-header">
             <div class="hero-card-icon">⚡</div>
             <div>
-              <h3 class="hero-card-title">Need Immediate Help?</h3>
-              <p style="font-size: 0.85rem; color: var(--color-text-muted);">Quick triage & fast scheduling</p>
+              <h3 class="hero-card-title">Need a Plumber Today?</h3>
+              <p class="hero-card-tag">Fast UK dispatch to your postcode</p>
             </div>
           </div>
 
           <div class="hero-quick-list">
             <div class="hero-quick-item" onclick="if(window.openBookingModal) window.openBookingModal({ serviceId: 'emergency-plumbing', urgency: 'emergency' })" style="cursor: pointer;">
-              <span>🚨 Burst Pipe or Flooding</span>
+              <span>🚨 Burst Pipe or Active Leak</span>
+              <span class="hero-quick-arrow">Book Now →</span>
+            </div>
+            <div class="hero-quick-item" onclick="if(window.openBookingModal) window.openBookingModal({ serviceId: 'boiler-heating', urgency: 'today' })" style="cursor: pointer;">
+              <span>🔥 Boiler Breakdown / No Heating</span>
               <span class="hero-quick-arrow">Book Now →</span>
             </div>
             <div class="hero-quick-item" onclick="if(window.openBookingModal) window.openBookingModal({ serviceId: 'drain-cleaning', urgency: 'today' })" style="cursor: pointer;">
-              <span>🌀 Blocked Drain / Toilet Backup</span>
-              <span class="hero-quick-arrow">Book Now →</span>
-            </div>
-            <div class="hero-quick-item" onclick="if(window.openBookingModal) window.openBookingModal({ serviceId: 'water-heater', urgency: 'today' })" style="cursor: pointer;">
-              <span>🔥 No Hot Water</span>
+              <span>🌀 Blocked Drain / Toilet Overflow</span>
               <span class="hero-quick-arrow">Book Now →</span>
             </div>
           </div>
 
           <a href="#" class="btn btn-whatsapp dynamic-whatsapp-link" style="width: 100%;">
-            💬 Chat on WhatsApp with Dispatch
+            💬 Chat on WhatsApp with UK Dispatch
           </a>
         </div>
       </div>
@@ -232,9 +262,9 @@
       <div class="container">
         <div class="section-header">
           <span class="section-tag">Interactive Problem Triage</span>
-          <h2 class="section-title">Not Sure What You Need?</h2>
+          <h2 class="section-title">Not Sure What Plumbing Service You Need?</h2>
           <p class="section-subtitle">
-            Use our interactive rule-based assistant to pinpoint the issue, get safety advice, and find the right service.
+            Answer a few quick questions with our rule-based diagnostic assistant to identify the problem, receive stopcock safety advice, and book the right UK engineer.
           </p>
         </div>
 
@@ -244,15 +274,15 @@
     </section>
 
     <!-- ==========================================
-         4. COMPREHENSIVE SERVICES SECTION
+         4. SERVICES SECTION
          ========================================== -->
     <section class="section" id="services">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">Our Services</span>
-          <h2 class="section-title">Professional Plumbing Solutions</h2>
+          <span class="section-tag">Comprehensive Solutions</span>
+          <h2 class="section-title">Professional UK Plumbing & Heating</h2>
           <p class="section-subtitle">
-            From minor faucet drips to full-scale sewer cleanouts, explore our services and schedule an appointment.
+            From boiler servicing and emergency stopcock repairs to bathroom tap installations, explore our services across <span data-config-text="CITY">[CITY]</span>.
           </p>
         </div>
 
@@ -268,36 +298,36 @@
     <section class="section section-alt" id="whyChooseUs">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">The Standard of Care</span>
-          <h2 class="section-title">Why Homeowners Trust Our Team</h2>
+          <span class="section-tag">The Valvoro Difference</span>
+          <h2 class="section-title">Why UK Property Owners Trust Us</h2>
           <p class="section-subtitle">
-            Reliable craft, honest communications, and respect for your property on every service call.
+            Dedicated craftsmanship, upfront fixed pricing in GBP (£), and genuine care for your home.
           </p>
         </div>
 
         <div class="features-grid">
           <div class="feature-card">
             <div class="feature-icon-box">⏱️</div>
-            <h3 class="feature-title">Rapid Response Times</h3>
-            <p class="feature-desc">When plumbing problems strike, our mobile units arrive promptly with stocked trucks ready to solve the problem in a single visit.</p>
+            <h3 class="feature-title">Rapid UK Dispatch</h3>
+            <p class="feature-desc">When burst pipes or boiler breakdowns strike, our mobile units arrive quickly with stocked vans to fix the issue on the first visit.</p>
           </div>
 
           <div class="feature-card">
             <div class="feature-icon-box">🏷️</div>
-            <h3 class="feature-title">Clear & Honest Pricing</h3>
-            <p class="feature-desc">No hidden surprises or bait-and-switch estimates. You approve the scope of work and pricing before any wrenches turn.</p>
+            <h3 class="feature-title">Clear Pricing in GBP (£)</h3>
+            <p class="feature-desc">No hidden callout surprises. You receive and approve a clear quote in GBP (£) before our plumbers commence any repair work.</p>
           </div>
 
           <div class="feature-card">
             <div class="feature-icon-box">🛡️</div>
-            <h3 class="feature-title">Certified Technicians</h3>
-            <p class="feature-desc">Our plumbers are thoroughly vetted, licensed, and trained on the latest building codes, materials, and safety standards.</p>
+            <h3 class="feature-title">Certified & Insured Engineers</h3>
+            <p class="feature-desc">All plumbers are thoroughly vetted, fully insured, and trained on the latest UK building regulations and water bylaws.</p>
           </div>
 
           <div class="feature-card">
             <div class="feature-icon-box">🧹</div>
-            <h3 class="feature-title">Clean Work Guarantee</h3>
-            <p class="feature-desc">We protect your floors with boot covers and drop cloths, and always clean up our workspace completely before leaving.</p>
+            <h3 class="feature-title">Clean Home Guarantee</h3>
+            <p class="feature-desc">We respect your carpets and flooring by using protective overshoes and dust sheets, leaving every work area clean and tidy.</p>
           </div>
         </div>
       </div>
@@ -310,17 +340,17 @@
       <div class="emergency-banner-section">
         <div class="emergency-banner-content">
           <div>
-            <h2 class="emergency-title">Active Leak or Plumbing Emergency?</h2>
+            <h2 class="emergency-title">Active Leak, Burst Pipe, or No Heat?</h2>
             <p class="emergency-desc">
-              Don't wait for water damage to spread. Our emergency on-call technicians are available 24/7 across <strong data-config-text="CITY">[CITY]</strong>.
+              Don't wait for water damage to spread into ceilings or floorboards. Our on-call 24/7 UK emergency plumbers are standing by across <strong data-config-text="CITY">[CITY]</strong>.
             </p>
           </div>
           <div class="emergency-actions">
-            <a href="tel:[PHONE_NUMBER]" class="btn btn-emergency-call" style="font-size: 1.1rem; padding: 14px 28px;">
-              📞 Call Now for Emergency Dispatch
+            <a href="tel:[PHONE_NUMBER]" class="btn btn-emergency-call" style="font-size: 1.1rem; padding: 16px 32px;">
+              📞 Call Emergency Plumber: <span data-display-phone>[PHONE_NUMBER]</span>
             </a>
             <button type="button" class="btn btn-secondary" data-action-emergency>
-              🚨 Request Urgent Callout
+              🚨 Request Urgent Dispatch Today
             </button>
           </div>
         </div>
@@ -334,9 +364,9 @@
       <div class="container">
         <div class="section-header">
           <span class="section-tag">Quality Workmanship</span>
-          <h2 class="section-title">See Our Work in Action</h2>
+          <h2 class="section-title">See Our Plumbing Standards</h2>
           <p class="section-subtitle">
-            Drag the slider left and right to see how we replace corroded, failing pipes with modern, durable copper and brass installations.
+            Slide the handle to inspect how our engineers replace corroded, calcified pipes with modern high-grade copper and lever valves.
           </p>
         </div>
 
@@ -347,7 +377,7 @@
 
             <!-- Before Image -->
             <div class="slider-image slider-image-before">
-              <img src="assets/images/pipe-before.svg" alt="Corroded leaking pipe before professional repair">
+              <img src="assets/images/pipe-before.svg" alt="Corroded leaking pipe before UK professional repair">
             </div>
 
             <!-- After Image -->
@@ -360,7 +390,7 @@
               <div class="slider-handle-button">↔</div>
             </div>
           </div>
-          <p class="slider-caption">Interactive comparison • Drag handle to compare before and after repair</p>
+          <p class="slider-caption">Interactive comparison • Drag handle to view before & after repair</p>
         </div>
       </div>
     </section>
@@ -372,9 +402,9 @@
       <div class="container">
         <div class="section-header">
           <span class="section-tag">Customer Feedback</span>
-          <h2 class="section-title">What Our Customers Say</h2>
+          <h2 class="section-title">What Our UK Customers Say</h2>
           <p class="section-subtitle">
-            Real feedback from verified homeowners and businesses across <span data-config-text="CITY">[CITY]</span>.
+            Verified feedback from homeowners and landlords in <span data-config-text="CITY">[CITY]</span>.
           </p>
         </div>
 
@@ -383,11 +413,12 @@
             <!-- Review 1 -->
             <div class="testimonial-slide">
               <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
                 <div class="testimonial-quote-icon">“</div>
                 <p class="testimonial-quote-text">"[Customer review goes here]"</p>
                 <div class="testimonial-author-box">
                   <span class="testimonial-author-name">[Customer Name]</span>
-                  <span class="testimonial-location-tag">Verified Homeowner • [CITY]</span>
+                  <span class="testimonial-location-tag">Verified Homeowner • [CITY] Postcode</span>
                 </div>
               </div>
             </div>
@@ -395,11 +426,12 @@
             <!-- Review 2 -->
             <div class="testimonial-slide">
               <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
                 <div class="testimonial-quote-icon">“</div>
                 <p class="testimonial-quote-text">"[Customer review goes here]"</p>
                 <div class="testimonial-author-box">
                   <span class="testimonial-author-name">[Customer Name]</span>
-                  <span class="testimonial-location-tag">Commercial Property Owner • [AREA 1]</span>
+                  <span class="testimonial-location-tag">Landlord • [AREA 1]</span>
                 </div>
               </div>
             </div>
@@ -407,11 +439,12 @@
             <!-- Review 3 -->
             <div class="testimonial-slide">
               <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
                 <div class="testimonial-quote-icon">“</div>
                 <p class="testimonial-quote-text">"[Customer review goes here]"</p>
                 <div class="testimonial-author-box">
                   <span class="testimonial-author-name">[Customer Name]</span>
-                  <span class="testimonial-location-tag">Residential Customer • [AREA 2]</span>
+                  <span class="testimonial-location-tag">Commercial Client • [AREA 2]</span>
                 </div>
               </div>
             </div>
@@ -427,15 +460,15 @@
     </section>
 
     <!-- ==========================================
-         9. INTERACTIVE SERVICE AREAS
+         9. UK SERVICE AREAS & POSTCODES
          ========================================== -->
     <section class="section" id="serviceAreas">
       <div class="container">
         <div class="section-header">
           <span class="section-tag">Coverage</span>
-          <h2 class="section-title">Areas We Proudly Serve</h2>
+          <h2 class="section-title">UK Postcodes & Areas We Cover</h2>
           <p class="section-subtitle">
-            Click any district to check local plumber availability or start a booking for your neighborhood.
+            Click your local district or postcode area to check engineer availability and book.
           </p>
         </div>
 
@@ -446,15 +479,15 @@
     </section>
 
     <!-- ==========================================
-         10. FAQ ACCORDION
+         10. FAQ ACCORDION (UK Focused)
          ========================================== -->
     <section class="section section-alt" id="faq">
       <div class="container">
         <div class="section-header">
-          <span class="section-tag">Common Questions</span>
+          <span class="section-tag">Common Enquiries</span>
           <h2 class="section-title">Frequently Asked Questions</h2>
           <p class="section-subtitle">
-            Everything you need to know about our scheduling, service policies, and response procedures.
+            Clear, transparent answers about our UK plumbing and heating response times, pricing, and procedures.
           </p>
         </div>
 
@@ -467,7 +500,7 @@
             </button>
             <div class="faq-panel">
               <div class="faq-panel-content">
-                For emergencies, our on-call technicians aim to arrive as rapidly as traffic and location allow. For non-emergency repairs, you can choose a convenient morning or afternoon time slot directly through our booking calendar.
+                For emergency situations such as active leaks or burst pipes, our local UK plumbers aim to arrive as rapidly as traffic and postcode proximity permit. For scheduled work, you can select an exact morning or afternoon window for today, tomorrow, or later this week.
               </div>
             </div>
           </div>
@@ -480,7 +513,7 @@
             </button>
             <div class="faq-panel">
               <div class="faq-panel-content">
-                Yes. We provide 24/7 emergency response for catastrophic water leaks, burst pipes, sewer backups, and complete water loss. You can call our emergency line anytime day or night.
+                Yes. We operate a 24/7 on-call emergency plumber service for burst water mains, ceiling collapse hazards, major toilet blockages, and total loss of water supply across <span data-config-text="CITY">[CITY]</span>.
               </div>
             </div>
           </div>
@@ -493,7 +526,7 @@
             </button>
             <div class="faq-panel">
               <div class="faq-panel-content">
-                Plumbing costs vary according to the nature of the issue, parts required, and repair complexity. We provide upfront, transparent pricing and obtain your full approval before starting any work.
+                All pricing is quoted transparently in GBP (£). Minor tap washers and basic unblocking differ from concealed leak tracing or boiler component replacements. We provide clear, fixed estimates before starting work with zero hidden fees.
               </div>
             </div>
           </div>
@@ -506,7 +539,7 @@
             </button>
             <div class="faq-panel">
               <div class="faq-panel-content">
-                We offer free estimates for scheduled replacements, renovations, and new fixture installations. For troubleshooting concealed leaks or diagnosing unknown issues, standard diagnostic inspection fees may apply.
+                Yes, we offer free written quotations for scheduled installations, bathroom renovations, boiler upgrades, and power flushing. Standard diagnostic fees may apply for complex investigative trace and access work.
               </div>
             </div>
           </div>
@@ -519,7 +552,7 @@
             </button>
             <div class="faq-panel">
               <div class="faq-panel-content">
-                We serve <span data-config-text="CITY">[CITY]</span> and nearby neighborhoods including [AREA 1], [AREA 2], [AREA 3], and [AREA 4]. If you are nearby and unsure if we cover your street, give us a quick call or WhatsApp message!
+                We cover <span data-config-text="CITY">[CITY]</span> and nearby districts including [AREA 1], [AREA 2], [AREA 3], and [AREA 4]. Enter your UK postcode in our booking form or check our service areas list.
               </div>
             </div>
           </div>
@@ -527,12 +560,12 @@
           <!-- FAQ 6 -->
           <div class="faq-item">
             <button type="button" class="faq-trigger" aria-expanded="false">
-              <span>Do you repair water heaters?</span>
+              <span>Do you repair water heaters and boilers?</span>
               <span class="faq-icon-chevron">▼</span>
             </button>
             <div class="faq-panel">
               <div class="faq-panel-content">
-                Yes. Our licensed technicians service, repair, flush, and install all major brands of gas and electric water heaters, including conventional storage tanks and energy-efficient tankless models.
+                Yes! Our engineers repair combi boilers, system boilers, immersion heaters, and unvented hot water cylinders (such as Megaflo). We handle burner errors, pressure loss, pump failures, and thermostat faults.
               </div>
             </div>
           </div>
@@ -545,7 +578,7 @@
             </button>
             <div class="faq-panel">
               <div class="faq-panel-content">
-                Yes! Our interactive 7-step booking system lets you pick your exact service, select your preferred date and arrival window, attach a photo, and submit your request in less than two minutes.
+                Yes, our 7-step online booking tool allows you to select your service, choose an arrival window for Today or Tomorrow, provide your UK postcode, and submit a booking request in under 2 minutes.
               </div>
             </div>
           </div>
@@ -558,7 +591,7 @@
             </button>
             <div class="faq-panel">
               <div class="faq-panel-content">
-                Yes, absolutely. We offer direct WhatsApp support for quick questions, photo evaluations, and instant quote inquiries. Tap any WhatsApp button on the page to open a chat.
+                Yes, absolutely. You can send photos of leaking pipes, faulty boiler panels, or taps directly to our WhatsApp dispatch desk for fast triage and advice.
               </div>
             </div>
           </div>
@@ -573,37 +606,37 @@
       <div class="container">
         <div class="section-header">
           <span class="section-tag">Get In Touch</span>
-          <h2 class="section-title">Ready to Fix Your Plumbing Problem?</h2>
+          <h2 class="section-title">Ready to Fix Your Plumbing Issue?</h2>
           <p class="section-subtitle">
-            Contact our dispatch office or book an appointment online today.
+            Contact our UK dispatch office or schedule an engineer arrival today.
           </p>
         </div>
 
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: 960px; margin: 0 auto;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 26px; max-width: 980px; margin: 0 auto;">
           <div class="feature-card" style="text-align: center;">
-            <div class="feature-icon-box">📞</div>
-            <h3 class="feature-title">Phone Call</h3>
-            <p class="feature-desc">Speak directly with our local dispatcher for immediate answers and emergency calls.</p>
-            <a href="tel:[PHONE_NUMBER]" class="btn btn-outline" style="margin-top: 16px; width: 100%;">
+            <div class="feature-icon-box" style="margin-left: auto; margin-right: auto;">📞</div>
+            <h3 class="feature-title">Telephone</h3>
+            <p class="feature-desc">Speak directly with our UK dispatch desk for rapid answers and emergency callouts.</p>
+            <a href="tel:[PHONE_NUMBER]" class="btn btn-outline" style="margin-top: 18px; width: 100%;">
               Call [PHONE_NUMBER]
             </a>
           </div>
 
           <div class="feature-card" style="text-align: center;">
-            <div class="feature-icon-box">💬</div>
+            <div class="feature-icon-box" style="margin-left: auto; margin-right: auto;">💬</div>
             <h3 class="feature-title">WhatsApp Chat</h3>
-            <p class="feature-desc">Send photos of the leak or fixture and get fast advice from our team.</p>
-            <a href="#" class="btn btn-whatsapp dynamic-whatsapp-link" style="margin-top: 16px; width: 100%;">
+            <p class="feature-desc">Send photos of the leak, boiler fault, or drain for rapid advice from our engineers.</p>
+            <a href="#" class="btn btn-whatsapp dynamic-whatsapp-link" style="margin-top: 18px; width: 100%;">
               Open WhatsApp Chat
             </a>
           </div>
 
           <div class="feature-card" style="text-align: center;">
-            <div class="feature-icon-box">📅</div>
-            <h3 class="feature-title">Online Booking</h3>
-            <p class="feature-desc">Choose your service, urgency, and available arrival window in seconds.</p>
-            <button type="button" class="btn btn-primary" onclick="if(window.openBookingModal) window.openBookingModal()" style="margin-top: 16px; width: 100%;">
-              Schedule a Plumber
+            <div class="feature-icon-box" style="margin-left: auto; margin-right: auto;">📅</div>
+            <h3 class="feature-title">Book Online</h3>
+            <p class="feature-desc">Choose your service, UK postcode, and preferred arrival window in seconds.</p>
+            <button type="button" class="btn btn-cta" onclick="if(window.openBookingModal) window.openBookingModal()" style="margin-top: 18px; width: 100%;">
+              Book a Plumber
             </button>
           </div>
         </div>
@@ -612,20 +645,24 @@
   </main>
 
   <!-- ==========================================
-       12. FOOTER
+       12. FOOTER (Valvoro UK Edition)
        ========================================== -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
         <div>
           <div class="footer-company-name">
-            🔧 <span data-config-text="COMPANY_NAME">[COMPANY_NAME]</span>
+            <span style="color: var(--color-primary);">🔧</span>
+            <span data-config-text="COMPANY_NAME">[COMPANY_NAME]</span>
           </div>
           <p class="footer-tagline" data-config-text="TAGLINE">
-            Fast, reliable, and trustworthy plumbing solutions for residential and commercial properties in <span data-config-text="CITY">[CITY]</span>.
+            Certified, reliable, and trustworthy UK plumbing and heating solutions for residential and commercial properties in <span data-config-text="CITY">[CITY]</span>.
           </p>
-          <p style="font-size: 0.85rem; color: #94a3b8;">
-            Dispatch Desk: <a href="tel:[PHONE_NUMBER]" style="color: #ffffff; font-weight: 700;">[PHONE_NUMBER]</a>
+          <p style="font-size: 0.9rem; color: #cbd5e0; margin-bottom: 8px;">
+            🇬🇧 <strong>UK Dispatch Desk:</strong> <a href="tel:[PHONE_NUMBER]" style="color: #ffffff; font-weight: 800;">[PHONE_NUMBER]</a>
+          </p>
+          <p style="font-size: 0.85rem; color: #a0aec0;">
+            ✉️ Email: <span data-config-text="EMAIL">enquiries@[company].co.uk</span>
           </p>
         </div>
 
@@ -642,36 +679,36 @@
         </div>
 
         <div>
-          <h4 class="footer-col-title">Services</h4>
+          <h4 class="footer-col-title">UK Services</h4>
           <ul class="footer-links-list">
-            <li><a href="#services">Emergency Plumbing</a></li>
+            <li><a href="#services">Emergency Plumber</a></li>
+            <li><a href="#services">Boiler & Heating</a></li>
             <li><a href="#services">Leak Detection</a></li>
-            <li><a href="#services">Drain Cleaning</a></li>
-            <li><a href="#services">Toilet Repair</a></li>
-            <li><a href="#services">Water Heaters</a></li>
-            <li><a href="#services">Pipe Repiping</a></li>
+            <li><a href="#services">Blocked Drains</a></li>
+            <li><a href="#services">Toilet Repairs</a></li>
+            <li><a href="#services">Hot Water Cylinders</a></li>
           </ul>
         </div>
 
         <div>
           <h4 class="footer-col-title">Operating Hours</h4>
-          <p style="font-size: 0.9rem; line-height: 1.6; margin-bottom: 8px;">
-            Mon – Fri: 7:00 AM – 7:00 PM<br>
-            Saturday: 8:00 AM – 5:00 PM<br>
+          <p style="font-size: 0.9rem; line-height: 1.65; margin-bottom: 10px;">
+            Mon – Fri: 07:30 – 19:00<br>
+            Saturday: 08:00 – 17:00<br>
             Sunday: Emergency On-Call Only
           </p>
-          <div style="background: rgba(255,255,255,0.08); padding: 10px; border-radius: 6px; font-size: 0.8rem; color: #cbd5e1;">
-            🚨 24/7 Emergency Dispatch is available 365 days a year for urgent flooding and burst pipes.
+          <div style="background: rgba(48, 195, 235, 0.1); border: 1px solid rgba(48, 195, 235, 0.3); padding: 12px; border-radius: 8px; font-size: 0.85rem; color: #e2e8f0;">
+            🚨 <strong>24/7 UK Emergency Response:</strong> On-call plumbers dispatched 365 days a year for burst pipes and flooding.
           </div>
         </div>
       </div>
 
       <div class="footer-bottom">
         <div>
-          © 2026 <span data-config-text="COMPANY_NAME">[COMPANY_NAME]</span>. All rights reserved.
+          © 2026 <span data-config-text="COMPANY_NAME">[COMPANY_NAME]</span>. Registered in the United Kingdom. All rights reserved.
         </div>
-        <div style="font-size: 0.8rem;">
-          Guidance disclaimer: Online assistant results do not replace an on-site physical inspection.
+        <div style="font-size: 0.85rem;">
+          Guidance disclaimer: Online triage results provide general guidance and do not replace an in-person inspection by a certified engineer.
         </div>
       </div>
     </div>
@@ -683,13 +720,13 @@
   <aside class="mobile-bottom-bar" aria-label="Mobile quick actions">
     <div class="mobile-bottom-bar-inner">
       <a href="tel:[PHONE_NUMBER]" class="mobile-bar-btn call-btn" data-track-loc="mobile_bottom_bar">
-        <span>📞</span> Call
+        <span>📞</span> Call Now
       </a>
       <a href="#" class="mobile-bar-btn whatsapp-btn dynamic-whatsapp-link" data-track-loc="mobile_bottom_bar">
         <span>💬</span> WhatsApp
       </a>
       <button type="button" class="mobile-bar-btn book-btn" id="mobileBarBookBtn">
-        <span>📅</span> Book
+        <span>📅</span> Book Plumber
       </button>
     </div>
   </aside>
@@ -705,14 +742,14 @@
   </div>
 
   <!-- ==========================================
-       15. 7-STEP BOOKING MODAL
+       15. 7-STEP BOOKING MODAL (UK Edition)
        ========================================== -->
   <div class="modal-backdrop" id="bookingModal" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal-dialog booking-modal-dialog">
       <!-- Top Progress Bar -->
       <div class="booking-modal-header">
         <div class="booking-header-top">
-          <div class="booking-header-title">📅 Schedule Plumbing Service</div>
+          <div class="booking-header-title">📅 Schedule UK Plumber Service</div>
           <span class="booking-step-counter" id="bookingStepIndicator">Step 1 of 7</span>
           <button type="button" class="modal-close-btn" id="bookingCloseBtn" aria-label="Close booking modal">✕</button>
         </div>
@@ -732,7 +769,7 @@
   <div class="floating-help-widget" id="floatingHelpContainer">
     <div class="floating-help-drawer" id="floatingHelpDrawer">
       <div class="drawer-header">
-        <span class="drawer-title">What's the problem?</span>
+        <span class="drawer-title">Need a UK Plumber?</span>
         <button type="button" class="drawer-close" id="floatingHelpCloseBtn" aria-label="Close help drawer">✕</button>
       </div>
       <div class="drawer-menu">
@@ -746,7 +783,7 @@
           <span>💬</span> WhatsApp Dispatch
         </a>
         <a href="tel:[PHONE_NUMBER]" class="drawer-item-btn" id="widgetCallBtn">
-          <span>📞</span> Call Now
+          <span>📞</span> Call Direct
         </a>
       </div>
     </div>
@@ -766,10 +803,10 @@
       <div class="exit-badge">🚰</div>
       <h3 class="exit-title">Before you go...</h3>
       <p class="exit-desc">
-        Need help with a plumbing problem in <span data-config-text="CITY">[CITY]</span>? Our local plumbers can diagnose and fix your leak or drain issue quickly.
+        Need help with a plumbing or heating issue in <span data-config-text="CITY">[CITY]</span>? Our certified UK plumbers can diagnose and fix your problem quickly with transparent pricing in GBP (£).
       </p>
       <div class="exit-actions">
-        <button type="button" class="btn btn-primary btn-cta" id="exitBookBtn">
+        <button type="button" class="btn btn-cta" id="exitBookBtn">
           📅 Book a Plumber
         </button>
         <a href="#" class="btn btn-whatsapp" id="exitWhatsAppBtn" target="_blank" rel="noopener">

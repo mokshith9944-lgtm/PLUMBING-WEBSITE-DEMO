@@ -1,30 +1,40 @@
 /**
  * CSS Design System & Variables
- * Color Palette: Dark/Navy Blue primary, Light Gray secondary, Orange accent, Green success
+ * Valvoro-inspired UK Plumbing & Heating Palette:
+ * Primary: Bright Cyan (#30C3EB)
+ * Dark Navy: #091F41
+ * Background: #F7FAFC
+ * White: #FFFFFF
+ * Text: #696969
+ * CTA Accent: #FF7A45
  */
 :root {
-  /* Brand Colors */
-  --color-primary: #0d2847;       /* Deep Trust Navy */
-  --color-primary-dark: #07172b;  /* Darker Navy */
-  --color-primary-light: #183b63; /* Medium Blue */
-  --color-secondary: #f8fafc;     /* Clean Off-White / Light Gray */
-  --color-secondary-alt: #f1f5f9; /* Soft Slate Tint */
-  --color-accent: #ea580c;        /* Energetic Conversion Orange */
-  --color-accent-hover: #c2410c;  /* Deep Orange */
-  --color-accent-light: #fff7ed;  /* Orange Tint / Highlight */
-  --color-success: #10b981;       /* Reassuring Green */
-  --color-success-light: #ecfdf5; /* Green Tint */
-  --color-danger: #dc2626;        /* Urgent Red */
-  --color-danger-light: #fef2f2;  /* Red Tint */
+  /* Brand Colours (Valvoro Palette) */
+  --color-primary: #30C3EB;        /* Bright Cyan / Sky Blue */
+  --color-primary-hover: #21b2d9;  /* Deep Cyan */
+  --color-primary-light: #e6f9fd;  /* Cyan Tint */
+  --color-navy: #091F41;           /* Deep Navy */
+  --color-navy-light: #122d56;     /* Slate Navy */
+  --color-navy-dark: #051329;      /* Ultra Deep Navy */
+  --color-secondary: #F7FAFC;      /* Clean Light Grey Background */
+  --color-secondary-alt: #edf2f7;  /* Border / Card Grey */
+  --color-accent: #FF7A45;         /* Valvoro CTA Warm Orange */
+  --color-accent-hover: #e8632e;   /* Deep Orange */
+  --color-accent-light: #fff3ee;   /* Soft Orange Tint */
+  --color-success: #10B981;        /* Reassuring Green */
+  --color-success-light: #ecfdf5;  /* Soft Green */
+  --color-danger: #EF4444;         /* Urgent Red */
+  --color-danger-light: #fef2f2;   /* Soft Red */
   
-  /* Neutral Palette */
-  --color-text-main: #0f172a;     /* Deep Charcoal */
-  --color-text-muted: #475569;    /* Readable Slate */
-  --color-text-light: #94a3b8;    /* Subdued Slate */
-  --color-border: #e2e8f0;        /* Crisp Divider Border */
-  --color-border-dark: #cbd5e1;
-  --color-card-bg: #ffffff;
-  --color-whatsapp: #25d366;
+  /* Neutral Typography */
+  --color-text-main: #091F41;      /* Headings & High Contrast Text */
+  --color-text-body: #696969;      /* Valvoro Body Text (#696969) */
+  --color-text-muted: #718096;     /* Subdued Text */
+  --color-text-light: #a0aec0;     /* Placeholder / Microcopy */
+  --color-border: #E2E8F0;         /* Crisp Border */
+  --color-border-dark: #cbd5e0;
+  --color-card-bg: #FFFFFF;
+  --color-whatsapp: #25D366;
   --color-whatsapp-hover: #1ebc59;
 
   /* Typography */
@@ -35,18 +45,19 @@
 
   /* Layout & Spacing */
   --max-width-container: 1200px;
-  --header-height: 76px;
+  --topbar-height: 40px;
+  --header-height: 80px;
   --mobile-bar-height: 68px;
   --radius-sm: 8px;
   --radius-md: 12px;
-  --radius-lg: 18px;
+  --radius-lg: 20px;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
-  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08), 0 2px 4px rgba(15, 23, 42, 0.04);
-  --shadow-lg: 0 12px 28px rgba(15, 23, 42, 0.12), 0 4px 10px rgba(15, 23, 42, 0.06);
-  --shadow-xl: 0 20px 40px rgba(13, 40, 71, 0.18);
+  /* Valvoro Soft Shadows */
+  --shadow-sm: 0 2px 4px rgba(9, 31, 65, 0.05);
+  --shadow-md: 0 8px 24px rgba(9, 31, 65, 0.08), 0 2px 6px rgba(9, 31, 65, 0.04);
+  --shadow-lg: 0 16px 36px rgba(9, 31, 65, 0.12), 0 4px 12px rgba(9, 31, 65, 0.06);
+  --shadow-xl: 0 24px 48px rgba(9, 31, 65, 0.16);
 
   /* Transitions */
   --transition-fast: 150ms ease;

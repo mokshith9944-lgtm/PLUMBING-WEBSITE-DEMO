@@ -1,7 +1,16 @@
 /**
- * Multi-Step Booking System Controller
- * Handles 7-step interactive booking modal, validation, photo upload preview,
- * summary generation, and confirmation screen.
+ * Multi-Step Booking System Controller — United Kingdom Edition
+ * Collects:
+ * - Plumbing Service
+ * - Urgency (Emergency, Today, Tomorrow, This Week, Quote)
+ * - Preferred Date
+ * - Preferred Time
+ * - Full Name
+ * - Phone Number (UK)
+ * - Email
+ * - UK Postcode
+ * - Address
+ * - Problem Description & Photo Upload (Optional)
  */
 class BookingSystem {
   constructor(config) {
@@ -9,7 +18,7 @@ class BookingSystem {
     this.currentStep = 1;
     this.totalSteps = 7;
     
-    // Booking Form State
+    // Booking Form State (UK Standard)
     this.bookingData = {
       serviceId: "",
       serviceName: "",
@@ -17,10 +26,12 @@ class BookingSystem {
       urgencyLabel: "",
       isEmergency: false,
       date: "",
+      dateFormatted: "",
       timeSlot: "",
       fullName: "",
       phone: "",
       email: "",
+      postcode: "",
       address: "",
       preferredContact: "WhatsApp",
       problemDescription: "",
@@ -42,14 +53,12 @@ class BookingSystem {
       this.closeBtn.addEventListener("click", () => this.close());
     }
 
-    // Close on backdrop click
     if (this.modal) {
       this.modal.addEventListener("click", (e) => {
         if (e.target === this.modal) this.close();
       });
     }
 
-    // Keyboard support
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && this.isOpen()) {
         this.close();
@@ -64,7 +73,6 @@ class BookingSystem {
   open(initialState = {}) {
     if (!this.modal) return;
 
-    // Reset or pre-fill state
     this.currentStep = 1;
     this.bookingData = {
       serviceId: initialState.serviceId || "",
@@ -73,10 +81,12 @@ class BookingSystem {
       urgencyLabel: "",
       isEmergency: false,
       date: "",
+      dateFormatted: "",
       timeSlot: "",
       fullName: "",
       phone: "",
       email: "",
+      postcode: initialState.postcode || "",
       address: "",
       preferredContact: "WhatsApp",
       problemDescription: initialState.problemNotes || "",
@@ -84,12 +94,10 @@ class BookingSystem {
       photoFileName: null
     };
 
-    // If pre-filled from assistant or service card
     if (this.bookingData.serviceId) {
       const match = this.config.SERVICES.find(s => s.id === this.bookingData.serviceId);
       if (match) {
         this.bookingData.serviceName = match.title;
-        // If service is already specified, start at step 2 or stay at 1
         this.currentStep = 2;
       }
     }
@@ -161,12 +169,12 @@ class BookingSystem {
     wrap.className = "booking-step-pane animate-fade-in";
     wrap.innerHTML = `
       <div class="step-header">
-        <h3 class="step-title">Select a Plumbing Service</h3>
-        <p class="step-desc">Choose the category that best describes your requirement.</p>
+        <h3 class="step-title">Select a Plumbing or Heating Service</h3>
+        <p class="step-desc">Choose the service you require for your UK home or commercial property.</p>
       </div>
       <div class="services-select-grid" id="servicesSelectGrid"></div>
       <div class="step-nav-footer">
-        <span class="step-note">Step 1: Required service category</span>
+        <span class="step-note">Step 1: Required plumbing service</span>
         <button type="button" class="btn btn-primary" id="step1NextBtn" disabled>
           Continue to Urgency →
         </button>
@@ -218,15 +226,15 @@ class BookingSystem {
   }
 
   // ==========================================
-  // STEP 2: URGENCY
+  // STEP 2: URGENCY (UK Standards)
   // ==========================================
   renderStep2(container) {
     const wrap = document.createElement("div");
     wrap.className = "booking-step-pane animate-fade-in";
     wrap.innerHTML = `
       <div class="step-header">
-        <h3 class="step-title">How Urgent Is Your Need?</h3>
-        <p class="step-desc">Help us assign the appropriate priority and scheduling window.</p>
+        <h3 class="step-title">How Urgent Is Your Request?</h3>
+        <p class="step-desc">Help us assign our nearest local UK plumber or priority on-call dispatch.</p>
       </div>
 
       <div class="urgency-select-list" id="urgencySelectList"></div>
@@ -234,10 +242,10 @@ class BookingSystem {
       <div class="emergency-alert-banner" id="emergencyBanner" style="display: none;">
         <div class="alert-icon">🚨</div>
         <div class="alert-content">
-          <strong>Immediate Dispatch Notice:</strong>
-          <p>Emergency service availability may depend on location and plumber on-call capacity. For active floods or burst pipes, please call directly.</p>
+          <strong>24/7 Emergency Plumber Alert:</strong>
+          <p>For uncontrollable burst pipes, ceiling leaks, or active flooding, please call our direct emergency dispatch line immediately for priority response.</p>
           <a href="tel:${this.config.PHONE_RAW}" class="btn btn-emergency-call">
-            📞 Call Now for Immediate Dispatch
+            📞 Call Now for Immediate UK Dispatch
           </a>
         </div>
       </div>
@@ -245,7 +253,7 @@ class BookingSystem {
       <div class="step-nav-footer">
         <button type="button" class="btn btn-outline" id="step2BackBtn">← Back</button>
         <button type="button" class="btn btn-primary" id="step2NextBtn" disabled>
-          Continue to Date Selection →
+          Continue to Preferred Date →
         </button>
       </div>
     `;
@@ -294,9 +302,7 @@ class BookingSystem {
 
     if (this.bookingData.urgency) {
       nextBtn.removeAttribute("disabled");
-      if (this.bookingData.isEmergency) {
-        banner.style.display = "flex";
-      }
+      if (this.bookingData.isEmergency) banner.style.display = "flex";
     }
 
     nextBtn.addEventListener("click", () => {
@@ -310,21 +316,21 @@ class BookingSystem {
   }
 
   // ==========================================
-  // STEP 3: DATE SELECTION
+  // STEP 3: PREFERRED DATE (Today / Tomorrow / Upcoming)
   // ==========================================
   renderStep3(container) {
     const wrap = document.createElement("div");
     wrap.className = "booking-step-pane animate-fade-in";
     wrap.innerHTML = `
       <div class="step-header">
-        <h3 class="step-title">Select an Appointment Date</h3>
-        <p class="step-desc">Pick an available day for your plumbing service or inspection.</p>
+        <h3 class="step-title">Select Preferred Date</h3>
+        <p class="step-desc">Pick an available day for your plumber visit or boiler service.</p>
       </div>
 
       <div class="calendar-picker-wrapper">
         <div class="calendar-hint">
-          <span>🟢 Available Dates</span>
-          <span>🔒 Limited / Emergency Only</span>
+          <span>🟢 Available UK Engineer Slots</span>
+          <span>🔒 Emergency Only</span>
         </div>
         <div class="calendar-date-cards" id="calendarDateCards"></div>
       </div>
@@ -336,7 +342,7 @@ class BookingSystem {
       <div class="step-nav-footer">
         <button type="button" class="btn btn-outline" id="step3BackBtn">← Back</button>
         <button type="button" class="btn btn-primary" id="step3NextBtn" disabled>
-          Continue to Time Slot →
+          Continue to Preferred Time →
         </button>
       </div>
     `;
@@ -351,26 +357,28 @@ class BookingSystem {
       this.renderStep();
     });
 
-    // Generate upcoming 10 days
     const today = new Date();
     for (let i = 0; i < 10; i++) {
       const d = new Date(today);
       d.setDate(today.getDate() + i);
 
       const isSunday = d.getDay() === 0;
-      const isPast = false;
-      const dayName = d.toLocaleDateString("en-US", { weekday: "short" });
-      const monthName = d.toLocaleDateString("en-US", { month: "short" });
+      const dayName = d.toLocaleDateString("en-GB", { weekday: "short" });
+      const monthName = d.toLocaleDateString("en-GB", { month: "short" });
       const dayNumber = d.getDate();
       const isoStr = d.toISOString().split("T")[0];
 
       const isAvailable = !isSunday || this.bookingData.isEmergency;
 
+      let displayLabel = dayName;
+      if (i === 0) displayLabel = "Today";
+      else if (i === 1) displayLabel = "Tomorrow";
+
       const card = document.createElement("div");
       const isSelected = this.bookingData.date === isoStr;
       card.className = `date-card ${isSelected ? "selected" : ""} ${!isAvailable ? "disabled" : ""}`;
       card.innerHTML = `
-        <span class="date-day-name">${i === 0 ? "Today" : (i === 1 ? "Tmrw" : dayName)}</span>
+        <span class="date-day-name">${displayLabel}</span>
         <span class="date-number">${dayNumber}</span>
         <span class="date-month">${monthName}</span>
         <span class="date-status-dot ${isAvailable ? "available" : "unavailable"}"></span>
@@ -381,17 +389,16 @@ class BookingSystem {
           cardsGrid.querySelectorAll(".date-card").forEach(c => c.classList.remove("selected"));
           card.classList.add("selected");
           this.bookingData.date = isoStr;
-          this.bookingData.dateFormatted = d.toLocaleDateString("en-US", {
-            weekday: "long",
-            year: "numeric",
+          this.bookingData.dateFormatted = `${displayLabel}, ${d.toLocaleDateString("en-GB", {
+            day: "numeric",
             month: "long",
-            day: "numeric"
-          });
+            year: "numeric"
+          })}`;
           previewEl.innerHTML = `Selected Date: <strong>${this.bookingData.dateFormatted}</strong>`;
           nextBtn.removeAttribute("disabled");
         });
       } else {
-        card.title = "Sundays reserved for emergency calls only";
+        card.title = "Sundays reserved for 24/7 emergency callouts";
       }
 
       cardsGrid.appendChild(card);
@@ -413,19 +420,19 @@ class BookingSystem {
   }
 
   // ==========================================
-  // STEP 4: TIME SLOT SELECTION
+  // STEP 4: PREFERRED TIME WINDOW
   // ==========================================
   renderStep4(container) {
     const wrap = document.createElement("div");
     wrap.className = "booking-step-pane animate-fade-in";
     wrap.innerHTML = `
       <div class="step-header">
-        <h3 class="step-title">Select a Time Window</h3>
-        <p class="step-desc">Pick an arrival slot. Our plumber will provide a 30-minute notice prior to arrival.</p>
+        <h3 class="step-title">Select Preferred Time Window</h3>
+        <p class="step-desc">Pick your preferred engineer arrival window. Our plumber will call 30 minutes ahead.</p>
       </div>
 
       <div class="slots-meta-bar">
-        <span class="slots-backend-notice">ℹ️ Configurable demonstration slots (connectable to Google Calendar / CRM)</span>
+        <span class="slots-backend-notice">🇬🇧 UK Operating Slots (Morning, Afternoon & Evening Windows)</span>
       </div>
 
       <div class="slots-grid" id="slotsGrid"></div>
@@ -433,7 +440,7 @@ class BookingSystem {
       <div class="step-nav-footer">
         <button type="button" class="btn btn-outline" id="step4BackBtn">← Back</button>
         <button type="button" class="btn btn-primary" id="step4NextBtn" disabled>
-          Continue to Your Details →
+          Continue to UK Address Details →
         </button>
       </div>
     `;
@@ -455,14 +462,14 @@ class BookingSystem {
       item.disabled = !slot.available;
       item.innerHTML = `
         <span class="slot-time">${slot.time}</span>
-        <span class="slot-period">${slot.available ? slot.period : "Booked"}</span>
+        <span class="slot-period">${slot.available ? slot.period : "Fully Booked"}</span>
       `;
 
       if (slot.available) {
         item.addEventListener("click", () => {
           slotsGrid.querySelectorAll(".slot-pill").forEach(p => p.classList.remove("selected"));
           item.classList.add("selected");
-          this.bookingData.timeSlot = slot.time;
+          this.bookingData.timeSlot = `${slot.time} (${slot.period})`;
           nextBtn.removeAttribute("disabled");
         });
       }
@@ -485,40 +492,46 @@ class BookingSystem {
   }
 
   // ==========================================
-  // STEP 5: CUSTOMER DETAILS
+  // STEP 5: UK CUSTOMER DETAILS (Postcode, Phone, Address)
   // ==========================================
   renderStep5(container) {
     const wrap = document.createElement("div");
     wrap.className = "booking-step-pane animate-fade-in";
     wrap.innerHTML = `
       <div class="step-header">
-        <h3 class="step-title">Your Contact & Location Details</h3>
-        <p class="step-desc">We use this to verify availability and dispatch technicians.</p>
+        <h3 class="step-title">Your UK Contact & Property Details</h3>
+        <p class="step-desc">Please provide your UK postcode and address so we can dispatch the nearest local plumber.</p>
       </div>
 
       <form id="customerDetailsForm" class="customer-form-grid" novalidate>
         <div class="form-group">
           <label for="custFullName">Full Name <span class="required">*</span></label>
-          <input type="text" id="custFullName" class="form-input" placeholder="e.g. John Miller" value="${this.bookingData.fullName || ""}" required>
+          <input type="text" id="custFullName" class="form-input" placeholder="e.g. James Smith" value="${this.bookingData.fullName || ""}" required>
           <span class="form-error-msg" id="nameError">Please enter your full name.</span>
         </div>
 
         <div class="form-group">
-          <label for="custPhone">Phone Number <span class="required">*</span></label>
-          <input type="tel" id="custPhone" class="form-input" placeholder="e.g. (555) 123-4567" value="${this.bookingData.phone || ""}" required>
-          <span class="form-error-msg" id="phoneError">Please enter a valid phone number.</span>
+          <label for="custPhone">UK Phone Number <span class="required">*</span></label>
+          <input type="tel" id="custPhone" class="form-input" placeholder="e.g. 07700 900123 or 020 7946 0912" value="${this.bookingData.phone || ""}" required>
+          <span class="form-error-msg" id="phoneError">Please enter a valid UK telephone number.</span>
         </div>
 
         <div class="form-group">
           <label for="custEmail">Email Address <span class="required">*</span></label>
-          <input type="email" id="custEmail" class="form-input" placeholder="e.g. john@example.com" value="${this.bookingData.email || ""}" required>
+          <input type="email" id="custEmail" class="form-input" placeholder="e.g. james.smith@example.co.uk" value="${this.bookingData.email || ""}" required>
           <span class="form-error-msg" id="emailError">Please enter a valid email address.</span>
         </div>
 
         <div class="form-group">
-          <label for="custAddress">Property Address / Service Location <span class="required">*</span></label>
-          <input type="text" id="custAddress" class="form-input" placeholder="Street, Apt / Suite, ${this.config.CITY}" value="${this.bookingData.address || ""}" required>
-          <span class="form-error-msg" id="addressError">Please provide your service address.</span>
+          <label for="custPostcode">UK Postcode <span class="required">*</span></label>
+          <input type="text" id="custPostcode" class="form-input uppercase" placeholder="e.g. SW1A 1AA or EC1A 1BB" value="${this.bookingData.postcode || ""}" required maxlength="10">
+          <span class="form-error-msg" id="postcodeError">Please enter a valid UK postcode (e.g. SW1A 1AA).</span>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="custAddress">Property Address / Street Name <span class="required">*</span></label>
+          <input type="text" id="custAddress" class="form-input" placeholder="e.g. 14 High Street, Flat 2B" value="${this.bookingData.address || ""}" required>
+          <span class="form-error-msg" id="addressError">Please provide your property address.</span>
         </div>
 
         <div class="form-group full-width">
@@ -543,12 +556,11 @@ class BookingSystem {
       <div class="step-nav-footer">
         <button type="button" class="btn btn-outline" id="step5BackBtn">← Back</button>
         <button type="button" class="btn btn-primary" id="step5NextBtn">
-          Continue to Problem Details →
+          Continue to Problem Description →
         </button>
       </div>
     `;
 
-    const form = wrap.querySelector("#customerDetailsForm");
     const nextBtn = wrap.querySelector("#step5NextBtn");
     const backBtn = wrap.querySelector("#step5BackBtn");
 
@@ -557,7 +569,6 @@ class BookingSystem {
       this.renderStep();
     });
 
-    // Contact method radio chips
     wrap.querySelectorAll("input[name='contactMethod']").forEach((radio) => {
       radio.addEventListener("change", (e) => {
         wrap.querySelectorAll(".radio-chip").forEach(c => c.classList.remove("selected"));
@@ -570,6 +581,7 @@ class BookingSystem {
       const nameInput = wrap.querySelector("#custFullName");
       const phoneInput = wrap.querySelector("#custPhone");
       const emailInput = wrap.querySelector("#custEmail");
+      const postcodeInput = wrap.querySelector("#custPostcode");
       const addressInput = wrap.querySelector("#custAddress");
 
       let isValid = true;
@@ -584,9 +596,9 @@ class BookingSystem {
         nameInput.classList.remove("input-error");
       }
 
-      // Phone Validation (simple robust international/national check)
-      const phoneClean = phoneInput.value.replace(/[^0-9]/g, "");
-      if (phoneClean.length < 7) {
+      // UK Phone Number Validation
+      const phoneClean = phoneInput.value.replace(/[^0-9+]/g, "");
+      if (phoneClean.length < 9) {
         wrap.querySelector("#phoneError").style.display = "block";
         phoneInput.classList.add("input-error");
         isValid = false;
@@ -606,6 +618,18 @@ class BookingSystem {
         emailInput.classList.remove("input-error");
       }
 
+      // UK Postcode Validation (standard official UK format: e.g. SW1A 1AA, W1B 2HW, M1 1AA, etc.)
+      const ukPostcodeRegex = /^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$/i;
+      const formattedPostcode = postcodeInput.value.trim().toUpperCase();
+      if (!ukPostcodeRegex.test(formattedPostcode) && formattedPostcode.length < 5) {
+        wrap.querySelector("#postcodeError").style.display = "block";
+        postcodeInput.classList.add("input-error");
+        isValid = false;
+      } else {
+        wrap.querySelector("#postcodeError").style.display = "none";
+        postcodeInput.classList.remove("input-error");
+      }
+
       // Address Validation
       if (!addressInput.value.trim() || addressInput.value.trim().length < 4) {
         wrap.querySelector("#addressError").style.display = "block";
@@ -620,6 +644,7 @@ class BookingSystem {
         this.bookingData.fullName = nameInput.value.trim();
         this.bookingData.phone = phoneInput.value.trim();
         this.bookingData.email = emailInput.value.trim();
+        this.bookingData.postcode = formattedPostcode;
         this.bookingData.address = addressInput.value.trim();
         this.currentStep = 6;
         this.renderStep();
@@ -638,12 +663,12 @@ class BookingSystem {
     wrap.innerHTML = `
       <div class="step-header">
         <h3 class="step-title">Problem Description & Photos</h3>
-        <p class="step-desc">Share any specific details or photos to help our plumbers arrive prepared.</p>
+        <p class="step-desc">Tell us briefly what is happening to help our UK engineer arrive with the correct parts.</p>
       </div>
 
       <div class="form-group full-width">
         <label for="problemDescriptionText">Tell us briefly what is happening:</label>
-        <textarea id="problemDescriptionText" class="form-textarea" rows="4" placeholder="Describe where the leak/clog is, what fixtures are affected, or any unusual noises...">${this.bookingData.problemDescription || ""}</textarea>
+        <textarea id="problemDescriptionText" class="form-textarea" rows="4" placeholder="Describe the leak, boiler error code, radiator issue, or blocked drain...">${this.bookingData.problemDescription || ""}</textarea>
       </div>
 
       <div class="form-group full-width">
@@ -652,7 +677,7 @@ class BookingSystem {
           <input type="file" id="photoFileInput" accept="image/*" class="photo-file-hidden">
           <div class="upload-placeholder" id="uploadPlaceholder">
             <span class="upload-icon">📷</span>
-            <p><strong>Click to browse</strong> or drag & drop a photo here</p>
+            <p><strong>Click to browse</strong> or drag & drop a photo of the plumbing issue</p>
             <span class="upload-hint">JPG, PNG, WebP up to 10MB</span>
           </div>
           <div class="photo-preview-box" id="photoPreviewBox" style="${this.bookingData.photoDataUrl ? "display: flex;" : "display: none;"}">
@@ -668,14 +693,13 @@ class BookingSystem {
       <div class="step-nav-footer">
         <button type="button" class="btn btn-outline" id="step6BackBtn">← Back</button>
         <button type="button" class="btn btn-primary" id="step6NextBtn">
-          Review Summary →
+          Review Booking Summary →
         </button>
       </div>
     `;
 
     const descArea = wrap.querySelector("#problemDescriptionText");
     const fileInput = wrap.querySelector("#photoFileInput");
-    const dropZone = wrap.querySelector("#photoDropZone");
     const placeholder = wrap.querySelector("#uploadPlaceholder");
     const previewBox = wrap.querySelector("#photoPreviewBox");
     const previewImg = wrap.querySelector("#photoPreviewImg");
@@ -731,7 +755,7 @@ class BookingSystem {
   }
 
   // ==========================================
-  // STEP 7: BOOKING SUMMARY
+  // STEP 7: SUMMARY & CONFIRMATION
   // ==========================================
   renderStep7(container) {
     const wrap = document.createElement("div");
@@ -739,12 +763,12 @@ class BookingSystem {
     wrap.innerHTML = `
       <div class="step-header">
         <h3 class="step-title">Review Booking Summary</h3>
-        <p class="step-desc">Please verify your details before submitting your booking request.</p>
+        <p class="step-desc">Please review your booking request details before submitting to our UK dispatch desk.</p>
       </div>
 
       <div class="summary-card">
         <div class="summary-row">
-          <span class="summary-label">Service:</span>
+          <span class="summary-label">Plumbing Service:</span>
           <span class="summary-value highlight">${this.bookingData.serviceName || "Plumbing Service"}</span>
         </div>
         <div class="summary-row">
@@ -752,28 +776,28 @@ class BookingSystem {
           <span class="summary-value">${this.bookingData.urgencyLabel || this.bookingData.urgency}</span>
         </div>
         <div class="summary-row">
-          <span class="summary-label">Requested Date:</span>
+          <span class="summary-label">Preferred Date:</span>
           <span class="summary-value">${this.bookingData.dateFormatted || this.bookingData.date}</span>
         </div>
         <div class="summary-row">
-          <span class="summary-label">Time Window:</span>
+          <span class="summary-label">Preferred Time Window:</span>
           <span class="summary-value">${this.bookingData.timeSlot}</span>
         </div>
         <div class="summary-row">
-          <span class="summary-label">Service Location:</span>
-          <span class="summary-value">${this.bookingData.address}</span>
+          <span class="summary-label">UK Postcode & Address:</span>
+          <span class="summary-value"><strong>${this.bookingData.postcode}</strong> • ${this.bookingData.address}</span>
         </div>
         <div class="summary-row">
           <span class="summary-label">Customer Name:</span>
           <span class="summary-value">${this.bookingData.fullName}</span>
         </div>
         <div class="summary-row">
-          <span class="summary-label">Contact:</span>
+          <span class="summary-label">Contact Details:</span>
           <span class="summary-value">${this.bookingData.phone} • ${this.bookingData.email} (${this.bookingData.preferredContact})</span>
         </div>
         ${this.bookingData.problemDescription ? `
           <div class="summary-row full">
-            <span class="summary-label">Notes:</span>
+            <span class="summary-label">Problem Description:</span>
             <span class="summary-value">${this.bookingData.problemDescription}</span>
           </div>
         ` : ""}
@@ -789,7 +813,7 @@ class BookingSystem {
       </div>
 
       <div class="backend-disclaimer-box">
-        ℹ️ <strong>Please Note:</strong> This submission constitutes an online <strong>Booking Request</strong>. Our dispatch team will confirm technician availability and contact you via ${this.bookingData.preferredContact}.
+        ℹ️ <strong>UK Booking Notice:</strong> This submission constitutes an online <strong>Booking Request</strong>. All estimates and quotes are provided in <strong>GBP (£)</strong> without hidden charges. Our local dispatch manager will confirm your engineer arrival window via ${this.bookingData.preferredContact}.
       </div>
 
       <div class="step-nav-footer">
@@ -810,7 +834,7 @@ class BookingSystem {
 
     confirmBtn.addEventListener("click", () => {
       confirmBtn.disabled = true;
-      confirmBtn.textContent = "Processing Request...";
+      confirmBtn.textContent = "Processing UK Request...";
       setTimeout(() => {
         this.submitBooking();
       }, 500);
@@ -820,17 +844,18 @@ class BookingSystem {
   }
 
   // ==========================================
-  // CONFIRMATION SCREEN
+  // BOOKING CONFIRMATION SCREEN
   // ==========================================
   submitBooking() {
     const randomNum = Math.floor(10000 + Math.random() * 90000);
-    const refCode = `PLB-2026-${randomNum}`;
+    const refCode = `PLB-UK-2026-${randomNum}`;
 
     if (window.trackEvent) {
       window.trackEvent("booking_completed", {
         ref: refCode,
         service: this.bookingData.serviceName,
-        urgency: this.bookingData.urgency
+        urgency: this.bookingData.urgency,
+        postcode: this.bookingData.postcode
       });
     }
 
@@ -840,25 +865,25 @@ class BookingSystem {
     if (this.progressBar) this.progressBar.style.width = "100%";
     if (this.stepIndicator) this.stepIndicator.textContent = "Request Submitted";
 
-    // Dynamic WhatsApp message with all booking details
     const waText = encodeURIComponent(
-      `Hi ${this.config.COMPANY_NAME || "Team"},\nI just submitted a booking request on your website.\n\n` +
+      `Hi ${this.config.COMPANY_NAME || "Valvoro Team"},\nI have submitted a booking request on your UK website.\n\n` +
       `Reference: ${refCode}\n` +
       `Service: ${this.bookingData.serviceName}\n` +
       `Urgency: ${this.bookingData.urgencyLabel || this.bookingData.urgency}\n` +
       `Date: ${this.bookingData.dateFormatted || this.bookingData.date}\n` +
-      `Time: ${this.bookingData.timeSlot}\n` +
-      `Location: ${this.bookingData.address}\n` +
-      `Name: ${this.bookingData.fullName}\n` +
+      `Time Window: ${this.bookingData.timeSlot}\n` +
+      `Postcode: ${this.bookingData.postcode}\n` +
+      `Address: ${this.bookingData.address}\n` +
+      `Customer Name: ${this.bookingData.fullName}\n` +
       `Phone: ${this.bookingData.phone}\n\n` +
-      `Could you please confirm this appointment?`
+      `Could you please confirm the plumber arrival time?`
     );
     const waUrl = `https://wa.me/${this.config.WHATSAPP_NUMBER}?text=${waText}`;
 
     container.innerHTML = `
       <div class="booking-confirmation-pane animate-scale-up">
         <div class="conf-badge">🎉 Booking Request Received</div>
-        <h3 class="conf-title">Thanks, ${this.escapeHtml(this.bookingData.fullName)}!</h3>
+        <h3 class="conf-title">Thank you, ${this.escapeHtml(this.bookingData.fullName)}!</h3>
         <p class="conf-subtitle">We've received your request for <strong>${this.escapeHtml(this.bookingData.serviceName)}</strong>.</p>
         
         <div class="conf-ref-box">
@@ -884,21 +909,21 @@ class BookingSystem {
           <div class="conf-item">
             <span class="conf-icon">📍</span>
             <div>
-              <span class="conf-meta">Location</span>
-              <strong>${this.escapeHtml(this.bookingData.address)}</strong>
+              <span class="conf-meta">Postcode & Address</span>
+              <strong>${this.escapeHtml(this.bookingData.postcode)} • ${this.escapeHtml(this.bookingData.address)}</strong>
             </div>
           </div>
           <div class="conf-item">
             <span class="conf-icon">📞</span>
             <div>
-              <span class="conf-meta">Phone</span>
+              <span class="conf-meta">Telephone</span>
               <strong>${this.escapeHtml(this.bookingData.phone)}</strong>
             </div>
           </div>
         </div>
 
         <p class="conf-notice">
-          ℹ️ Our dispatch manager will review technician routes and contact you shortly to confirm your scheduled arrival.
+          ℹ️ Our UK dispatch manager will review your local engineer route and contact you shortly to confirm your booking.
         </p>
 
         <div class="conf-action-buttons">
@@ -906,7 +931,7 @@ class BookingSystem {
             💬 Contact on WhatsApp
           </a>
           <a href="tel:${this.config.PHONE_RAW}" class="btn btn-outline">
-            📞 Call Us
+            📞 Call Now
           </a>
           <button type="button" class="btn btn-secondary" id="confBackToSiteBtn">
             ← Back to Website
