@@ -1,7 +1,7 @@
 /**
  * Main Application Orchestrator — Valvoro UK Edition
  * Coordinates config hydration, responsive navigation, sticky header,
- * mobile action bar, CTA buttons, and initializes all modules.
+ * mobile action bar, CTA buttons, scroll animations, and initializes all modules.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -14,7 +14,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // 3. Setup Global CTAs (Hero, Emergency Banner, Mobile Action Bar)
   setupActionTriggers();
 
-  // 4. Initialize Core Interactive Modules
+  // 4. Setup Scroll & Viewport Animations
+  setupScrollAnimations();
+
+  // 5. Initialize Core Interactive Modules
   if (window.initPlumbingAssistant) {
     window.initPlumbingAssistant("assistantAppContainer");
   }
@@ -66,7 +69,7 @@ function hydrateSiteConfig() {
     });
   });
 
-  // Render Service Cards in Grid
+  // Render Service Cards in Grid with Authentic Photography
   renderServicesGrid();
 
   // Render UK Postcode Service Areas
@@ -74,36 +77,42 @@ function hydrateSiteConfig() {
 }
 
 /**
- * Renders the interactive service cards
+ * Renders the interactive service cards with authentic imagery
  */
 function renderServicesGrid() {
   const container = document.getElementById("servicesGridContainer");
   if (!container || !SITE_CONFIG.SERVICES) return;
 
   container.innerHTML = "";
-  SITE_CONFIG.SERVICES.forEach((srv) => {
+  SITE_CONFIG.SERVICES.forEach((srv, index) => {
     const card = document.createElement("div");
-    card.className = "service-card";
+    card.className = `service-card reveal-on-scroll stagger-${(index % 3) + 1}`;
     card.setAttribute("data-service-id", srv.id);
     card.innerHTML = `
-      <div class="service-card-top">
-        <span class="service-card-icon">${srv.icon}</span>
+      <div class="service-card-img-wrap">
+        <img src="${srv.image}" alt="${srv.alt}" loading="lazy" width="400" height="230" class="service-card-img">
         <span class="service-card-badge">${srv.badge}</span>
       </div>
-      <h3 class="service-card-title">${srv.title}</h3>
-      <p class="service-card-desc">${srv.shortDesc}</p>
       
-      <div class="service-card-urgency-tag">
-        <span>⏱️ Urgency:</span> <strong>${srv.urgency}</strong>
-      </div>
+      <div class="service-card-body">
+        <div class="service-card-header-row">
+          <span class="service-card-icon">${srv.icon}</span>
+          <h3 class="service-card-title">${srv.title}</h3>
+        </div>
+        <p class="service-card-desc">${srv.shortDesc}</p>
+        
+        <div class="service-card-urgency-tag">
+          <span>⏱️ Typical Urgency:</span> <strong>${srv.urgency}</strong>
+        </div>
 
-      <div class="service-card-footer">
-        <button type="button" class="service-explore-btn">
-          Details & Signs →
-        </button>
-        <button type="button" class="btn-card-book" data-service-book="${srv.id}">
-          Book Plumber
-        </button>
+        <div class="service-card-footer">
+          <button type="button" class="service-explore-btn">
+            Details & Signs →
+          </button>
+          <button type="button" class="btn-card-book" data-service-book="${srv.id}">
+            Book Plumber
+          </button>
+        </div>
       </div>
     `;
 
@@ -134,7 +143,7 @@ function renderServiceAreas() {
   container.innerHTML = "";
   SITE_CONFIG.SERVICE_AREAS.forEach((area) => {
     const pill = document.createElement("div");
-    pill.className = "area-pill";
+    pill.className = "area-pill reveal-on-scroll";
     pill.setAttribute("data-area-name", area.name);
     pill.innerHTML = `
       <span class="area-pin">📍</span>
@@ -232,6 +241,15 @@ function setupActionTriggers() {
     });
   }
 
+  // Floating Hero Card Book Button
+  const heroFloatingBookBtn = document.getElementById("heroFloatingBookBtn");
+  if (heroFloatingBookBtn) {
+    heroFloatingBookBtn.addEventListener("click", () => {
+      if (window.trackEvent) window.trackEvent("hero_floating_book_click");
+      if (window.openBookingModal) window.openBookingModal();
+    });
+  }
+
   // Emergency Callout Buttons
   document.querySelectorAll("[data-action-emergency]").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -255,5 +273,32 @@ function setupActionTriggers() {
         });
       }
     });
+  });
+}
+
+/**
+ * Scroll-Triggered Viewport Animations
+ */
+function setupScrollAnimations() {
+  if (!("IntersectionObserver" in window)) {
+    // Fallback: make all visible if browser lacks observer
+    document.querySelectorAll(".reveal-on-scroll").forEach(el => el.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.12,
+    rootMargin: "0px 0px -40px 0px"
+  });
+
+  document.querySelectorAll(".reveal-on-scroll").forEach((el) => {
+    observer.observe(el);
   });
 }

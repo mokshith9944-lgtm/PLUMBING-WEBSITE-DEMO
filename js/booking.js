@@ -1,16 +1,13 @@
 /**
- * Multi-Step Booking System Controller — United Kingdom Edition
- * Collects:
- * - Plumbing Service
- * - Urgency (Emergency, Today, Tomorrow, This Week, Quote)
- * - Preferred Date
- * - Preferred Time
- * - Full Name
- * - Phone Number (UK)
- * - Email
- * - UK Postcode
- * - Address
- * - Problem Description & Photo Upload (Optional)
+ * Multi-Step Booking System Controller — Valvoro UK Edition
+ * Exact 7-Step Sequence:
+ * Step 1: Service
+ * Step 2: Urgency
+ * Step 3: UK Postcode
+ * Step 4: Preferred Date
+ * Step 5: Preferred Time Window
+ * Step 6: Customer Details & Problem Description
+ * Step 7: Summary & Confirmation
  */
 class BookingSystem {
   constructor(config) {
@@ -25,13 +22,14 @@ class BookingSystem {
       urgency: "",
       urgencyLabel: "",
       isEmergency: false,
+      postcode: "",
+      postcodeArea: "",
       date: "",
       dateFormatted: "",
       timeSlot: "",
       fullName: "",
       phone: "",
       email: "",
-      postcode: "",
       address: "",
       preferredContact: "WhatsApp",
       problemDescription: "",
@@ -80,13 +78,14 @@ class BookingSystem {
       urgency: initialState.urgency || "",
       urgencyLabel: "",
       isEmergency: false,
+      postcode: initialState.postcode || "",
+      postcodeArea: "",
       date: "",
       dateFormatted: "",
       timeSlot: "",
       fullName: "",
       phone: "",
       email: "",
-      postcode: initialState.postcode || "",
       address: "",
       preferredContact: "WhatsApp",
       problemDescription: initialState.problemNotes || "",
@@ -142,19 +141,19 @@ class BookingSystem {
         this.renderStep2(container);
         break;
       case 3:
-        this.renderStep3(container);
+        this.renderStep3(container); // UK Postcode
         break;
       case 4:
-        this.renderStep4(container);
+        this.renderStep4(container); // Date
         break;
       case 5:
-        this.renderStep5(container);
+        this.renderStep5(container); // Time
         break;
       case 6:
-        this.renderStep6(container);
+        this.renderStep6(container); // Details + Problem + Photo
         break;
       case 7:
-        this.renderStep7(container);
+        this.renderStep7(container); // Summary & Confirmation
         break;
       default:
         this.renderStep1(container);
@@ -162,20 +161,20 @@ class BookingSystem {
   }
 
   // ==========================================
-  // STEP 1: SERVICE SELECTION
+  // STEP 1: SERVICE
   // ==========================================
   renderStep1(container) {
     const wrap = document.createElement("div");
     wrap.className = "booking-step-pane animate-fade-in";
     wrap.innerHTML = `
       <div class="step-header">
-        <h3 class="step-title">Select a Plumbing or Heating Service</h3>
-        <p class="step-desc">Choose the service you require for your UK home or commercial property.</p>
+        <h3 class="step-title">1. Select a Plumbing Service</h3>
+        <p class="step-desc">Choose the plumbing or heating solution you require.</p>
       </div>
       <div class="services-select-grid" id="servicesSelectGrid"></div>
       <div class="step-nav-footer">
-        <span class="step-note">Step 1: Required plumbing service</span>
-        <button type="button" class="btn btn-primary" id="step1NextBtn" disabled>
+        <span class="step-note">Step 1: Service category</span>
+        <button type="button" class="btn btn-cta" id="step1NextBtn" disabled>
           Continue to Urgency →
         </button>
       </div>
@@ -211,9 +210,7 @@ class BookingSystem {
       grid.appendChild(card);
     });
 
-    if (this.bookingData.serviceId) {
-      nextBtn.removeAttribute("disabled");
-    }
+    if (this.bookingData.serviceId) nextBtn.removeAttribute("disabled");
 
     nextBtn.addEventListener("click", () => {
       if (this.bookingData.serviceId) {
@@ -226,14 +223,14 @@ class BookingSystem {
   }
 
   // ==========================================
-  // STEP 2: URGENCY (UK Standards)
+  // STEP 2: URGENCY
   // ==========================================
   renderStep2(container) {
     const wrap = document.createElement("div");
     wrap.className = "booking-step-pane animate-fade-in";
     wrap.innerHTML = `
       <div class="step-header">
-        <h3 class="step-title">How Urgent Is Your Request?</h3>
+        <h3 class="step-title">2. How Urgent Is Your Request?</h3>
         <p class="step-desc">Help us assign our nearest local UK plumber or priority on-call dispatch.</p>
       </div>
 
@@ -243,7 +240,7 @@ class BookingSystem {
         <div class="alert-icon">🚨</div>
         <div class="alert-content">
           <strong>24/7 Emergency Plumber Alert:</strong>
-          <p>For uncontrollable burst pipes, ceiling leaks, or active flooding, please call our direct emergency dispatch line immediately for priority response.</p>
+          <p>For uncontrollable burst pipes, ceiling leaks, or active flooding, call our emergency dispatch line directly for priority response.</p>
           <a href="tel:${this.config.PHONE_RAW}" class="btn btn-emergency-call">
             📞 Call Now for Immediate UK Dispatch
           </a>
@@ -252,8 +249,8 @@ class BookingSystem {
 
       <div class="step-nav-footer">
         <button type="button" class="btn btn-outline" id="step2BackBtn">← Back</button>
-        <button type="button" class="btn btn-primary" id="step2NextBtn" disabled>
-          Continue to Preferred Date →
+        <button type="button" class="btn btn-cta" id="step2NextBtn" disabled>
+          Continue to UK Postcode →
         </button>
       </div>
     `;
@@ -316,15 +313,113 @@ class BookingSystem {
   }
 
   // ==========================================
-  // STEP 3: PREFERRED DATE (Today / Tomorrow / Upcoming)
+  // STEP 3: UK POSTCODE (Dedicated Triage & Verification)
   // ==========================================
   renderStep3(container) {
     const wrap = document.createElement("div");
     wrap.className = "booking-step-pane animate-fade-in";
     wrap.innerHTML = `
       <div class="step-header">
-        <h3 class="step-title">Select Preferred Date</h3>
-        <p class="step-desc">Pick an available day for your plumber visit or boiler service.</p>
+        <h3 class="step-title">3. Enter Your UK Postcode</h3>
+        <p class="step-desc">We check live local engineer availability in your area to confirm coverage.</p>
+      </div>
+
+      <div class="postcode-step-box">
+        <div class="postcode-input-wrapper">
+          <label for="stepPostcodeInput">UK Postcode <span class="required">*</span></label>
+          <div class="postcode-field-row">
+            <input type="text" id="stepPostcodeInput" class="form-input uppercase" placeholder="e.g. SW1A 1AA or EC1A 1BB" value="${this.bookingData.postcode || ""}" maxlength="10">
+            <button type="button" class="btn btn-primary" id="btnVerifyPostcode">Verify Postcode</button>
+          </div>
+          <span class="form-error-msg" id="stepPostcodeError">Please enter a valid UK postcode.</span>
+        </div>
+
+        <div class="postcode-status-result" id="postcodeStatusResult" style="display: none;">
+          <div class="postcode-status-badge">
+            <span class="postcode-check-icon">✓</span>
+            <div>
+              <strong id="postcodeAreaName">UK Engineers Available in Your Area</strong>
+              <p style="font-size: 0.85rem; color: var(--color-text-body); margin: 0;">Local vans actively operating in this postcode district.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="uk-coverage-hint">
+          <span>🇬🇧 Covering Greater London, Home Counties & major UK metro regions.</span>
+        </div>
+      </div>
+
+      <div class="step-nav-footer">
+        <button type="button" class="btn btn-outline" id="step3BackBtn">← Back</button>
+        <button type="button" class="btn btn-cta" id="step3NextBtn" disabled>
+          Continue to Preferred Date →
+        </button>
+      </div>
+    `;
+
+    const input = wrap.querySelector("#stepPostcodeInput");
+    const errorMsg = wrap.querySelector("#stepPostcodeError");
+    const verifyBtn = wrap.querySelector("#btnVerifyPostcode");
+    const resultBox = wrap.querySelector("#postcodeStatusResult");
+    const areaNameEl = wrap.querySelector("#postcodeAreaName");
+    const nextBtn = wrap.querySelector("#step3NextBtn");
+    const backBtn = wrap.querySelector("#step3BackBtn");
+
+    backBtn.addEventListener("click", () => {
+      this.currentStep = 2;
+      this.renderStep();
+    });
+
+    const ukPostcodeRegex = /^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$/i;
+
+    const doVerify = () => {
+      const val = input.value.trim().toUpperCase();
+      if (ukPostcodeRegex.test(val) || val.length >= 5) {
+        errorMsg.style.display = "none";
+        input.classList.remove("input-error");
+        this.bookingData.postcode = val;
+        this.bookingData.postcodeArea = val.split(" ")[0];
+        areaNameEl.textContent = `UK Engineers Available in ${val}`;
+        resultBox.style.display = "block";
+        nextBtn.removeAttribute("disabled");
+      } else {
+        errorMsg.style.display = "block";
+        input.classList.add("input-error");
+        resultBox.style.display = "none";
+        nextBtn.setAttribute("disabled", "true");
+      }
+    };
+
+    verifyBtn.addEventListener("click", doVerify);
+    input.addEventListener("input", (e) => {
+      e.target.value = e.target.value.toUpperCase();
+      if (e.target.value.length >= 5) doVerify();
+    });
+
+    if (this.bookingData.postcode) {
+      doVerify();
+    }
+
+    nextBtn.addEventListener("click", () => {
+      if (this.bookingData.postcode) {
+        this.currentStep = 4;
+        this.renderStep();
+      }
+    });
+
+    container.appendChild(wrap);
+  }
+
+  // ==========================================
+  // STEP 4: PREFERRED DATE
+  // ==========================================
+  renderStep4(container) {
+    const wrap = document.createElement("div");
+    wrap.className = "booking-step-pane animate-fade-in";
+    wrap.innerHTML = `
+      <div class="step-header">
+        <h3 class="step-title">4. Select Preferred Date</h3>
+        <p class="step-desc">Pick an arrival date for your engineer appointment in <strong>${this.bookingData.postcode}</strong>.</p>
       </div>
 
       <div class="calendar-picker-wrapper">
@@ -340,8 +435,8 @@ class BookingSystem {
       </div>
 
       <div class="step-nav-footer">
-        <button type="button" class="btn btn-outline" id="step3BackBtn">← Back</button>
-        <button type="button" class="btn btn-primary" id="step3NextBtn" disabled>
+        <button type="button" class="btn btn-outline" id="step4BackBtn">← Back</button>
+        <button type="button" class="btn btn-cta" id="step4NextBtn" disabled>
           Continue to Preferred Time →
         </button>
       </div>
@@ -349,11 +444,11 @@ class BookingSystem {
 
     const cardsGrid = wrap.querySelector("#calendarDateCards");
     const previewEl = wrap.querySelector("#selectedDatePreview");
-    const nextBtn = wrap.querySelector("#step3NextBtn");
-    const backBtn = wrap.querySelector("#step3BackBtn");
+    const nextBtn = wrap.querySelector("#step4NextBtn");
+    const backBtn = wrap.querySelector("#step4BackBtn");
 
     backBtn.addEventListener("click", () => {
-      this.currentStep = 2;
+      this.currentStep = 3;
       this.renderStep();
     });
 
@@ -411,7 +506,7 @@ class BookingSystem {
 
     nextBtn.addEventListener("click", () => {
       if (this.bookingData.date) {
-        this.currentStep = 4;
+        this.currentStep = 5;
         this.renderStep();
       }
     });
@@ -420,44 +515,44 @@ class BookingSystem {
   }
 
   // ==========================================
-  // STEP 4: PREFERRED TIME WINDOW
+  // STEP 5: PREFERRED TIME
   // ==========================================
-  renderStep4(container) {
+  renderStep5(container) {
     const wrap = document.createElement("div");
     wrap.className = "booking-step-pane animate-fade-in";
     wrap.innerHTML = `
       <div class="step-header">
-        <h3 class="step-title">Select Preferred Time Window</h3>
-        <p class="step-desc">Pick your preferred engineer arrival window. Our plumber will call 30 minutes ahead.</p>
+        <h3 class="step-title">5. Select Preferred Time Window</h3>
+        <p class="step-desc">Pick an arrival slot. Our local UK plumber will phone 30 minutes before arriving.</p>
       </div>
 
       <div class="slots-meta-bar">
-        <span class="slots-backend-notice">🇬🇧 UK Operating Slots (Morning, Afternoon & Evening Windows)</span>
+        <span class="slots-backend-notice">🇬🇧 UK Operating Windows (Morning, Afternoon & Evening)</span>
       </div>
 
       <div class="slots-grid" id="slotsGrid"></div>
 
       <div class="step-nav-footer">
-        <button type="button" class="btn btn-outline" id="step4BackBtn">← Back</button>
-        <button type="button" class="btn btn-primary" id="step4NextBtn" disabled>
-          Continue to UK Address Details →
+        <button type="button" class="btn btn-outline" id="step5BackBtn">← Back</button>
+        <button type="button" class="btn btn-cta" id="step5NextBtn" disabled>
+          Continue to Customer Details →
         </button>
       </div>
     `;
 
     const slotsGrid = wrap.querySelector("#slotsGrid");
-    const nextBtn = wrap.querySelector("#step4NextBtn");
-    const backBtn = wrap.querySelector("#step4BackBtn");
+    const nextBtn = wrap.querySelector("#step5NextBtn");
+    const backBtn = wrap.querySelector("#step5BackBtn");
 
     backBtn.addEventListener("click", () => {
-      this.currentStep = 3;
+      this.currentStep = 4;
       this.renderStep();
     });
 
     this.config.BOOKING_SLOTS.forEach((slot) => {
       const item = document.createElement("button");
       item.type = "button";
-      const isSelected = this.bookingData.timeSlot === slot.time;
+      const isSelected = this.bookingData.timeSlot && this.bookingData.timeSlot.includes(slot.time);
       item.className = `slot-pill ${isSelected ? "selected" : ""} ${!slot.available ? "slot-unavailable" : ""}`;
       item.disabled = !slot.available;
       item.innerHTML = `
@@ -477,13 +572,11 @@ class BookingSystem {
       slotsGrid.appendChild(item);
     });
 
-    if (this.bookingData.timeSlot) {
-      nextBtn.removeAttribute("disabled");
-    }
+    if (this.bookingData.timeSlot) nextBtn.removeAttribute("disabled");
 
     nextBtn.addEventListener("click", () => {
       if (this.bookingData.timeSlot) {
-        this.currentStep = 5;
+        this.currentStep = 6;
         this.renderStep();
       }
     });
@@ -492,46 +585,64 @@ class BookingSystem {
   }
 
   // ==========================================
-  // STEP 5: UK CUSTOMER DETAILS (Postcode, Phone, Address)
+  // STEP 6: CUSTOMER DETAILS & PROBLEM DESCRIPTION
   // ==========================================
-  renderStep5(container) {
+  renderStep6(container) {
     const wrap = document.createElement("div");
     wrap.className = "booking-step-pane animate-fade-in";
     wrap.innerHTML = `
       <div class="step-header">
-        <h3 class="step-title">Your UK Contact & Property Details</h3>
-        <p class="step-desc">Please provide your UK postcode and address so we can dispatch the nearest local plumber.</p>
+        <h3 class="step-title">6. Your Details & Problem Description</h3>
+        <p class="step-desc">Enter your contact details and describe the issue to help our engineer prepare.</p>
       </div>
 
       <form id="customerDetailsForm" class="customer-form-grid" novalidate>
         <div class="form-group">
           <label for="custFullName">Full Name <span class="required">*</span></label>
-          <input type="text" id="custFullName" class="form-input" placeholder="e.g. James Smith" value="${this.bookingData.fullName || ""}" required>
+          <input type="text" id="custFullName" class="form-input" placeholder="e.g. Sarah Jenkins" value="${this.bookingData.fullName || ""}" required>
           <span class="form-error-msg" id="nameError">Please enter your full name.</span>
         </div>
 
         <div class="form-group">
-          <label for="custPhone">UK Phone Number <span class="required">*</span></label>
+          <label for="custPhone">UK Telephone Number <span class="required">*</span></label>
           <input type="tel" id="custPhone" class="form-input" placeholder="e.g. 07700 900123 or 020 7946 0912" value="${this.bookingData.phone || ""}" required>
-          <span class="form-error-msg" id="phoneError">Please enter a valid UK telephone number.</span>
+          <span class="form-error-msg" id="phoneError">Please enter a valid UK phone number.</span>
         </div>
 
         <div class="form-group">
           <label for="custEmail">Email Address <span class="required">*</span></label>
-          <input type="email" id="custEmail" class="form-input" placeholder="e.g. james.smith@example.co.uk" value="${this.bookingData.email || ""}" required>
+          <input type="email" id="custEmail" class="form-input" placeholder="e.g. sarah.jenkins@example.co.uk" value="${this.bookingData.email || ""}" required>
           <span class="form-error-msg" id="emailError">Please enter a valid email address.</span>
         </div>
 
         <div class="form-group">
-          <label for="custPostcode">UK Postcode <span class="required">*</span></label>
-          <input type="text" id="custPostcode" class="form-input uppercase" placeholder="e.g. SW1A 1AA or EC1A 1BB" value="${this.bookingData.postcode || ""}" required maxlength="10">
-          <span class="form-error-msg" id="postcodeError">Please enter a valid UK postcode (e.g. SW1A 1AA).</span>
+          <label for="custAddress">Property Address & Door Number <span class="required">*</span></label>
+          <input type="text" id="custAddress" class="form-input" placeholder="e.g. 24 Willow Gardens, Flat 3" value="${this.bookingData.address || ""}" required>
+          <span class="form-error-msg" id="addressError">Please provide your property address.</span>
         </div>
 
         <div class="form-group full-width">
-          <label for="custAddress">Property Address / Street Name <span class="required">*</span></label>
-          <input type="text" id="custAddress" class="form-input" placeholder="e.g. 14 High Street, Flat 2B" value="${this.bookingData.address || ""}" required>
-          <span class="form-error-msg" id="addressError">Please provide your property address.</span>
+          <label for="problemDescriptionText">Problem Description:</label>
+          <textarea id="problemDescriptionText" class="form-textarea" rows="3" placeholder="Briefly describe the leak, boiler fault code, radiator issue, or noise...">${this.bookingData.problemDescription || ""}</textarea>
+        </div>
+
+        <div class="form-group full-width">
+          <label>Upload a Photo of the Problem (Optional):</label>
+          <div class="photo-upload-zone" id="photoDropZone">
+            <input type="file" id="photoFileInput" accept="image/*" class="photo-file-hidden">
+            <div class="upload-placeholder" id="uploadPlaceholder">
+              <span class="upload-icon">📷</span>
+              <p><strong>Click to browse</strong> or drag & drop a photo of the plumbing problem</p>
+              <span class="upload-hint">JPG, PNG, WebP up to 10MB</span>
+            </div>
+            <div class="photo-preview-box" id="photoPreviewBox" style="${this.bookingData.photoDataUrl ? "display: flex;" : "display: none;"}">
+              <img id="photoPreviewImg" src="${this.bookingData.photoDataUrl || ""}" alt="Plumbing problem preview">
+              <div class="photo-meta">
+                <span id="photoName">${this.bookingData.photoFileName || "Problem photo"}</span>
+                <button type="button" class="btn-remove-photo" id="btnRemovePhoto">Remove photo ✕</button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="form-group full-width">
@@ -554,150 +665,17 @@ class BookingSystem {
       </form>
 
       <div class="step-nav-footer">
-        <button type="button" class="btn btn-outline" id="step5BackBtn">← Back</button>
-        <button type="button" class="btn btn-primary" id="step5NextBtn">
-          Continue to Problem Description →
-        </button>
-      </div>
-    `;
-
-    const nextBtn = wrap.querySelector("#step5NextBtn");
-    const backBtn = wrap.querySelector("#step5BackBtn");
-
-    backBtn.addEventListener("click", () => {
-      this.currentStep = 4;
-      this.renderStep();
-    });
-
-    wrap.querySelectorAll("input[name='contactMethod']").forEach((radio) => {
-      radio.addEventListener("change", (e) => {
-        wrap.querySelectorAll(".radio-chip").forEach(c => c.classList.remove("selected"));
-        e.target.closest(".radio-chip").classList.add("selected");
-        this.bookingData.preferredContact = e.target.value;
-      });
-    });
-
-    nextBtn.addEventListener("click", () => {
-      const nameInput = wrap.querySelector("#custFullName");
-      const phoneInput = wrap.querySelector("#custPhone");
-      const emailInput = wrap.querySelector("#custEmail");
-      const postcodeInput = wrap.querySelector("#custPostcode");
-      const addressInput = wrap.querySelector("#custAddress");
-
-      let isValid = true;
-
-      // Full Name Validation
-      if (!nameInput.value.trim() || nameInput.value.trim().length < 2) {
-        wrap.querySelector("#nameError").style.display = "block";
-        nameInput.classList.add("input-error");
-        isValid = false;
-      } else {
-        wrap.querySelector("#nameError").style.display = "none";
-        nameInput.classList.remove("input-error");
-      }
-
-      // UK Phone Number Validation
-      const phoneClean = phoneInput.value.replace(/[^0-9+]/g, "");
-      if (phoneClean.length < 9) {
-        wrap.querySelector("#phoneError").style.display = "block";
-        phoneInput.classList.add("input-error");
-        isValid = false;
-      } else {
-        wrap.querySelector("#phoneError").style.display = "none";
-        phoneInput.classList.remove("input-error");
-      }
-
-      // Email Validation
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(emailInput.value.trim())) {
-        wrap.querySelector("#emailError").style.display = "block";
-        emailInput.classList.add("input-error");
-        isValid = false;
-      } else {
-        wrap.querySelector("#emailError").style.display = "none";
-        emailInput.classList.remove("input-error");
-      }
-
-      // UK Postcode Validation (standard official UK format: e.g. SW1A 1AA, W1B 2HW, M1 1AA, etc.)
-      const ukPostcodeRegex = /^[A-Z]{1,2}[0-9][A-Z0-9]? ?[0-9][A-Z]{2}$/i;
-      const formattedPostcode = postcodeInput.value.trim().toUpperCase();
-      if (!ukPostcodeRegex.test(formattedPostcode) && formattedPostcode.length < 5) {
-        wrap.querySelector("#postcodeError").style.display = "block";
-        postcodeInput.classList.add("input-error");
-        isValid = false;
-      } else {
-        wrap.querySelector("#postcodeError").style.display = "none";
-        postcodeInput.classList.remove("input-error");
-      }
-
-      // Address Validation
-      if (!addressInput.value.trim() || addressInput.value.trim().length < 4) {
-        wrap.querySelector("#addressError").style.display = "block";
-        addressInput.classList.add("input-error");
-        isValid = false;
-      } else {
-        wrap.querySelector("#addressError").style.display = "none";
-        addressInput.classList.remove("input-error");
-      }
-
-      if (isValid) {
-        this.bookingData.fullName = nameInput.value.trim();
-        this.bookingData.phone = phoneInput.value.trim();
-        this.bookingData.email = emailInput.value.trim();
-        this.bookingData.postcode = formattedPostcode;
-        this.bookingData.address = addressInput.value.trim();
-        this.currentStep = 6;
-        this.renderStep();
-      }
-    });
-
-    container.appendChild(wrap);
-  }
-
-  // ==========================================
-  // STEP 6: PROBLEM DESCRIPTION & PHOTO UPLOAD
-  // ==========================================
-  renderStep6(container) {
-    const wrap = document.createElement("div");
-    wrap.className = "booking-step-pane animate-fade-in";
-    wrap.innerHTML = `
-      <div class="step-header">
-        <h3 class="step-title">Problem Description & Photos</h3>
-        <p class="step-desc">Tell us briefly what is happening to help our UK engineer arrive with the correct parts.</p>
-      </div>
-
-      <div class="form-group full-width">
-        <label for="problemDescriptionText">Tell us briefly what is happening:</label>
-        <textarea id="problemDescriptionText" class="form-textarea" rows="4" placeholder="Describe the leak, boiler error code, radiator issue, or blocked drain...">${this.bookingData.problemDescription || ""}</textarea>
-      </div>
-
-      <div class="form-group full-width">
-        <label>Upload a Photo (Optional):</label>
-        <div class="photo-upload-zone" id="photoDropZone">
-          <input type="file" id="photoFileInput" accept="image/*" class="photo-file-hidden">
-          <div class="upload-placeholder" id="uploadPlaceholder">
-            <span class="upload-icon">📷</span>
-            <p><strong>Click to browse</strong> or drag & drop a photo of the plumbing issue</p>
-            <span class="upload-hint">JPG, PNG, WebP up to 10MB</span>
-          </div>
-          <div class="photo-preview-box" id="photoPreviewBox" style="${this.bookingData.photoDataUrl ? "display: flex;" : "display: none;"}">
-            <img id="photoPreviewImg" src="${this.bookingData.photoDataUrl || ""}" alt="Plumbing problem preview">
-            <div class="photo-meta">
-              <span id="photoName">${this.bookingData.photoFileName || "Problem photo"}</span>
-              <button type="button" class="btn-remove-photo" id="btnRemovePhoto">Remove photo ✕</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="step-nav-footer">
         <button type="button" class="btn btn-outline" id="step6BackBtn">← Back</button>
-        <button type="button" class="btn btn-primary" id="step6NextBtn">
+        <button type="button" class="btn btn-cta" id="step6NextBtn">
           Review Booking Summary →
         </button>
       </div>
     `;
 
+    const nameInput = wrap.querySelector("#custFullName");
+    const phoneInput = wrap.querySelector("#custPhone");
+    const emailInput = wrap.querySelector("#custEmail");
+    const addressInput = wrap.querySelector("#custAddress");
     const descArea = wrap.querySelector("#problemDescriptionText");
     const fileInput = wrap.querySelector("#photoFileInput");
     const placeholder = wrap.querySelector("#uploadPlaceholder");
@@ -745,10 +723,68 @@ class BookingSystem {
       placeholder.style.display = "block";
     });
 
+    wrap.querySelectorAll("input[name='contactMethod']").forEach((radio) => {
+      radio.addEventListener("change", (e) => {
+        wrap.querySelectorAll(".radio-chip").forEach(c => c.classList.remove("selected"));
+        e.target.closest(".radio-chip").classList.add("selected");
+        this.bookingData.preferredContact = e.target.value;
+      });
+    });
+
     nextBtn.addEventListener("click", () => {
-      this.bookingData.problemDescription = descArea.value.trim();
-      this.currentStep = 7;
-      this.renderStep();
+      let isValid = true;
+
+      // Name
+      if (!nameInput.value.trim() || nameInput.value.trim().length < 2) {
+        wrap.querySelector("#nameError").style.display = "block";
+        nameInput.classList.add("input-error");
+        isValid = false;
+      } else {
+        wrap.querySelector("#nameError").style.display = "none";
+        nameInput.classList.remove("input-error");
+      }
+
+      // Phone
+      const phoneClean = phoneInput.value.replace(/[^0-9+]/g, "");
+      if (phoneClean.length < 9) {
+        wrap.querySelector("#phoneError").style.display = "block";
+        phoneInput.classList.add("input-error");
+        isValid = false;
+      } else {
+        wrap.querySelector("#phoneError").style.display = "none";
+        phoneInput.classList.remove("input-error");
+      }
+
+      // Email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(emailInput.value.trim())) {
+        wrap.querySelector("#emailError").style.display = "block";
+        emailInput.classList.add("input-error");
+        isValid = false;
+      } else {
+        wrap.querySelector("#emailError").style.display = "none";
+        emailInput.classList.remove("input-error");
+      }
+
+      // Address
+      if (!addressInput.value.trim() || addressInput.value.trim().length < 3) {
+        wrap.querySelector("#addressError").style.display = "block";
+        addressInput.classList.add("input-error");
+        isValid = false;
+      } else {
+        wrap.querySelector("#addressError").style.display = "none";
+        addressInput.classList.remove("input-error");
+      }
+
+      if (isValid) {
+        this.bookingData.fullName = nameInput.value.trim();
+        this.bookingData.phone = phoneInput.value.trim();
+        this.bookingData.email = emailInput.value.trim();
+        this.bookingData.address = addressInput.value.trim();
+        this.bookingData.problemDescription = descArea.value.trim();
+        this.currentStep = 7;
+        this.renderStep();
+      }
     });
 
     container.appendChild(wrap);
@@ -762,8 +798,8 @@ class BookingSystem {
     wrap.className = "booking-step-pane animate-fade-in";
     wrap.innerHTML = `
       <div class="step-header">
-        <h3 class="step-title">Review Booking Summary</h3>
-        <p class="step-desc">Please review your booking request details before submitting to our UK dispatch desk.</p>
+        <h3 class="step-title">7. Review & Confirm Booking Request</h3>
+        <p class="step-desc">Please review your booking details before sending to our UK dispatch desk.</p>
       </div>
 
       <div class="summary-card">
@@ -776,16 +812,16 @@ class BookingSystem {
           <span class="summary-value">${this.bookingData.urgencyLabel || this.bookingData.urgency}</span>
         </div>
         <div class="summary-row">
+          <span class="summary-label">UK Postcode & Address:</span>
+          <span class="summary-value"><strong>${this.bookingData.postcode}</strong> • ${this.bookingData.address}</span>
+        </div>
+        <div class="summary-row">
           <span class="summary-label">Preferred Date:</span>
           <span class="summary-value">${this.bookingData.dateFormatted || this.bookingData.date}</span>
         </div>
         <div class="summary-row">
-          <span class="summary-label">Preferred Time Window:</span>
+          <span class="summary-label">Arrival Window:</span>
           <span class="summary-value">${this.bookingData.timeSlot}</span>
-        </div>
-        <div class="summary-row">
-          <span class="summary-label">UK Postcode & Address:</span>
-          <span class="summary-value"><strong>${this.bookingData.postcode}</strong> • ${this.bookingData.address}</span>
         </div>
         <div class="summary-row">
           <span class="summary-label">Customer Name:</span>
@@ -797,7 +833,7 @@ class BookingSystem {
         </div>
         ${this.bookingData.problemDescription ? `
           <div class="summary-row full">
-            <span class="summary-label">Problem Description:</span>
+            <span class="summary-label">Problem Notes:</span>
             <span class="summary-value">${this.bookingData.problemDescription}</span>
           </div>
         ` : ""}
@@ -813,12 +849,12 @@ class BookingSystem {
       </div>
 
       <div class="backend-disclaimer-box">
-        ℹ️ <strong>UK Booking Notice:</strong> This submission constitutes an online <strong>Booking Request</strong>. All estimates and quotes are provided in <strong>GBP (£)</strong> without hidden charges. Our local dispatch manager will confirm your engineer arrival window via ${this.bookingData.preferredContact}.
+        ℹ️ <strong>UK Booking Notice:</strong> This is a <strong>Booking Request</strong>. Pricing and estimates are provided in <strong>GBP (£)</strong>. Our dispatch team will confirm your arrival time via ${this.bookingData.preferredContact}.
       </div>
 
       <div class="step-nav-footer">
         <button type="button" class="btn btn-outline" id="step7BackBtn">← Back to Edit</button>
-        <button type="button" class="btn btn-primary btn-cta" id="confirmBookingBtn">
+        <button type="button" class="btn btn-cta" id="confirmBookingBtn">
           ✓ Confirm Booking Request
         </button>
       </div>
@@ -844,7 +880,7 @@ class BookingSystem {
   }
 
   // ==========================================
-  // BOOKING CONFIRMATION SCREEN
+  // CONFIRMATION WITH SUBTLE SUCCESS ANIMATION
   // ==========================================
   submitBooking() {
     const randomNum = Math.floor(10000 + Math.random() * 90000);
@@ -870,21 +906,27 @@ class BookingSystem {
       `Reference: ${refCode}\n` +
       `Service: ${this.bookingData.serviceName}\n` +
       `Urgency: ${this.bookingData.urgencyLabel || this.bookingData.urgency}\n` +
+      `Postcode: ${this.bookingData.postcode}\n` +
       `Date: ${this.bookingData.dateFormatted || this.bookingData.date}\n` +
       `Time Window: ${this.bookingData.timeSlot}\n` +
-      `Postcode: ${this.bookingData.postcode}\n` +
       `Address: ${this.bookingData.address}\n` +
-      `Customer Name: ${this.bookingData.fullName}\n` +
+      `Name: ${this.bookingData.fullName}\n` +
       `Phone: ${this.bookingData.phone}\n\n` +
-      `Could you please confirm the plumber arrival time?`
+      `Could you please confirm the engineer arrival window?`
     );
     const waUrl = `https://wa.me/${this.config.WHATSAPP_NUMBER}?text=${waText}`;
 
     container.innerHTML = `
       <div class="booking-confirmation-pane animate-scale-up">
-        <div class="conf-badge">🎉 Booking Request Received</div>
+        <div class="subtle-success-check">
+          <svg class="checkmark-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+            <circle class="checkmark-circle" cx="26" cy="26" r="24" fill="none"/>
+            <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+          </svg>
+        </div>
+        <div class="conf-badge">Booking Request Received</div>
         <h3 class="conf-title">Thank you, ${this.escapeHtml(this.bookingData.fullName)}!</h3>
-        <p class="conf-subtitle">We've received your request for <strong>${this.escapeHtml(this.bookingData.serviceName)}</strong>.</p>
+        <p class="conf-subtitle">We've received your request for <strong>${this.escapeHtml(this.bookingData.serviceName)}</strong> in <strong>${this.escapeHtml(this.bookingData.postcode)}</strong>.</p>
         
         <div class="conf-ref-box">
           <span class="ref-label">Booking Reference:</span>
@@ -923,7 +965,7 @@ class BookingSystem {
         </div>
 
         <p class="conf-notice">
-          ℹ️ Our UK dispatch manager will review your local engineer route and contact you shortly to confirm your booking.
+          ℹ️ Our UK dispatch manager will review your local engineer route and contact you shortly to confirm your arrival window.
         </p>
 
         <div class="conf-action-buttons">

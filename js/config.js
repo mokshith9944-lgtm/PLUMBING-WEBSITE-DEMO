@@ -1,6 +1,7 @@
 /**
  * Centralized Business Configuration — United Kingdom
  * Valvoro-inspired professional UK plumbing & heating business configuration.
+ * Includes authentic trade photography for each service.
  */
 const SITE_CONFIG = {
   // Business Identity (UK)
@@ -34,13 +35,15 @@ const SITE_CONFIG = {
   EMERGENCY_AVAILABILITY: true,
   EMERGENCY_PHONE_NOTE: "For burst mains, severe water leaks, or boiler breakdowns, please call our emergency dispatch desk immediately.",
 
-  // UK Standard Available Services
+  // UK Standard Available Services with Authentic Photography
   SERVICES: [
     {
       id: "emergency-plumbing",
       title: "Emergency Plumber",
       icon: "🚨",
       badge: "24/7 UK Dispatch",
+      image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80",
+      alt: "Emergency plumber responding with tools to home burst pipe",
       shortDesc: "Rapid response for burst pipes, active flooding, and urgent water isolation.",
       description: "When an emergency strikes, every minute matters. Our fully qualified UK emergency plumbers arrive in stocked vans to isolate internal stopcocks, halt flooding, and repair damaged pipework safely.",
       commonSigns: [
@@ -63,6 +66,8 @@ const SITE_CONFIG = {
       title: "Boiler & Central Heating",
       icon: "🔥",
       badge: "Heating Specialists",
+      image: "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=800&q=80",
+      alt: "UK Gas Safe engineer inspecting residential boiler",
       shortDesc: "Boiler breakdown repairs, radiator bleeding, thermostat faults, and heating repairs.",
       description: "Keep your home warm through the British winter. We troubleshoot combi boilers, system boilers, diverter valves, circulating pumps, and low pressure error codes with certified Gas Safe expertise.",
       commonSigns: [
@@ -85,6 +90,8 @@ const SITE_CONFIG = {
       title: "Leak Detection & Repair",
       icon: "💧",
       badge: "Trace & Access",
+      image: "https://images.unsplash.com/photo-1581244277943-fe4a9c777189?auto=format&fit=crop&w=800&q=80",
+      alt: "Professional plumber repairing a leaking pipe with wrench",
       shortDesc: "Non-destructive acoustic and thermal leak detection for hidden pipes.",
       description: "Concealed leaks behind plasterboard or under floorboards can cause damp, rot, and rising water bills. Our non-invasive acoustic sensors and thermal cameras pinpoint leaks without destroying walls.",
       commonSigns: [
@@ -107,6 +114,8 @@ const SITE_CONFIG = {
       title: "Blocked Drains & Pipes",
       icon: "🌀",
       badge: "High-Pressure Jetting",
+      image: "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=800&q=80",
+      alt: "Plumber clearing a blocked bathroom and kitchen drain",
       shortDesc: "Clearing stubborn blockages, gullies, soil stacks, and external inspection chambers.",
       description: "From slow-draining kitchen waste pipes to external gullies overflowing with fats and silt, our high-pressure electro-mechanical rotary machines and CCTV drain cameras clear blockages cleanly.",
       commonSigns: [
@@ -129,6 +138,8 @@ const SITE_CONFIG = {
       title: "Toilet & Cistern Repair",
       icon: "🚽",
       badge: "Same-Day Service",
+      image: "https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&w=800&q=80",
+      alt: "Professional plumber servicing a toilet cistern",
       shortDesc: "Fixing running siphons, push-button valves, inlet leaks, and new toilet installs.",
       description: "A constantly trickling dual-flush toilet can waste up to 400 litres of metered water every day. We service push-button mechanisms, ballvalves, doughnut gaskets, and fit modern rimless toilets.",
       commonSigns: [
@@ -151,6 +162,8 @@ const SITE_CONFIG = {
       title: "Hot Water Cylinders",
       icon: "🚰",
       badge: "Vented & Unvented",
+      image: "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=800&q=80",
+      alt: "Plumber inspecting residential hot water cylinder valves",
       shortDesc: "Repairs for Megaflo unvented cylinders, immersion heaters, and pressure relief valves.",
       description: "Whether you have a traditional vented gravity cylinder with cold header tank or a pressurised unvented Megaflo cylinder, our G3-certified plumbers service immersion elements, thermostats, and expansion vessels.",
       commonSigns: [
@@ -173,6 +186,8 @@ const SITE_CONFIG = {
       title: "Taps & Shower Plumbing",
       icon: "🚿",
       badge: "Drip-Free Guarantee",
+      image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80",
+      alt: "Chrome bathroom mixer tap and shower installation",
       shortDesc: "Repairing dripping mixer taps, thermostatic shower valves, and cartridge changes.",
       description: "Fix annoying drips, sudden temperature spikes, or low flow. We replace ceramic disc cartridges, fit modern pull-out kitchen mixer taps, and install thermostatic bar showers that protect from scalding.",
       commonSigns: [
@@ -195,6 +210,8 @@ const SITE_CONFIG = {
       title: "Pipework & Stopcocks",
       icon: "🔧",
       badge: "Burst Prevention",
+      image: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&w=800&q=80",
+      alt: "Copper pipework and modern brass stopcock installation",
       shortDesc: "Replacing lead pipes, stiff main stopcocks, copper pinholes, and barrier pipes.",
       description: "Ensure your home's water supply is secure and clean. We replace seized brass stopcocks with easy-turn quarter-turn lever valves, remove historical lead piping, and fix noisy water hammer pipes.",
       commonSigns: [
@@ -217,6 +234,8 @@ const SITE_CONFIG = {
       title: "Radiators & Power Flushing",
       icon: "🌡️",
       badge: "Heat Efficiency",
+      image: "https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80",
+      alt: "Modern residential radiator and thermostatic valve",
       shortDesc: "Power flushing central heating circuits, fixing cold spots, and fitting new radiators.",
       description: "Sludge and black magnetite iron oxide in your radiators can raise heating bills by up to 25%. Our magnetic power flush removes sludge to restore blistering hot radiators throughout your home.",
       commonSigns: [
@@ -239,6 +258,8 @@ const SITE_CONFIG = {
       title: "Bathroom & Kitchen Plumbing",
       icon: "🛁",
       badge: "Fit & Install",
+      image: "https://images.unsplash.com/photo-1542013936693-884638332954?auto=format&fit=crop&w=800&q=80",
+      alt: "Plumber working under kitchen sink on waste pipework",
       shortDesc: "Washing machine feeds, dishwasher waste loops, waste disposals, and basin installs.",
       description: "From plumbing in new American fridge freezers and washing machines to complete bathroom sanitaryware rough-in, our plumbers ensure all trapwork and waste connections are watertight.",
       commonSigns: [
@@ -261,6 +282,8 @@ const SITE_CONFIG = {
       title: "Get a Custom Quote",
       icon: "💬",
       badge: "Free Consultation",
+      image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=800&q=80",
+      alt: "Friendly plumber consulting with homeowner for quote",
       shortDesc: "Gas safety certificates (CP12), commercial installations, and custom plumbing.",
       description: "Landlord safety checks, commercial facility maintenance, water softeners, or tailored installations. Get in touch with our team for a free, transparent estimate in GBP (£).",
       commonSigns: [
@@ -286,7 +309,7 @@ const SITE_CONFIG = {
     { id: "slot-1000", time: "10:00 AM", period: "Morning (10:00 – 13:00)", available: true },
     { id: "slot-1200", time: "12:00 PM", period: "Midday (12:00 – 14:00)", available: true },
     { id: "slot-1400", time: "02:00 PM", period: "Afternoon (14:00 – 17:00)", available: true },
-    { id: "slot-1600", time: "04:00 PM", period: "Late Afternoon (16:00 – 18:30)", available: false }, // example booked slot
+    { id: "slot-1600", time: "04:00 PM", period: "Late Afternoon (16:00 – 18:30)", available: false },
     { id: "slot-1800", time: "06:00 PM", period: "Evening Window", available: true }
   ],
 

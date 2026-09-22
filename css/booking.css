@@ -273,7 +273,87 @@
 }
 
 /* ==========================================
-   STEP 3: CALENDAR DATE PICKER
+   STEP 3: UK POSTCODE COVERAGE CHECK
+   ========================================== */
+.postcode-step-box {
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 10px 0;
+}
+
+.postcode-input-wrapper {
+  margin-bottom: 20px;
+}
+
+.postcode-input-wrapper label {
+  display: block;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-navy);
+  margin-bottom: 8px;
+}
+
+.postcode-field-row {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+
+.postcode-field-row .form-input {
+  flex: 1;
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 14px 18px;
+}
+
+.postcode-field-row .btn {
+  white-space: nowrap;
+  padding: 0 24px;
+  font-weight: 800;
+}
+
+.postcode-status-result {
+  margin-top: 18px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.postcode-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background-color: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+}
+
+.postcode-check-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #10b981;
+  color: #ffffff;
+  font-weight: 900;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.uk-coverage-hint {
+  margin-top: 18px;
+  font-size: 0.85rem;
+  color: var(--color-text-body);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ==========================================
+   STEP 4: CALENDAR DATE PICKER
    ========================================== */
 .calendar-picker-wrapper {
   margin-bottom: 22px;
@@ -681,6 +761,72 @@
 .booking-confirmation-pane {
   text-align: center;
   padding: 24px 0;
+}
+
+/* Subtle Animated Success Checkmark */
+.subtle-success-check {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.checkmark-svg {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 3;
+  stroke: #10b981;
+  stroke-miterlimit: 10;
+  box-shadow: inset 0px 0px 0px #10b981;
+  animation: fillCheck 0.4s ease-in-out 0.4s forwards, scaleCheck 0.3s ease-in-out 0.9s both;
+}
+
+.checkmark-circle {
+  stroke-dasharray: 166;
+  stroke-dashoffset: 166;
+  stroke-width: 3;
+  stroke-miterlimit: 10;
+  stroke: #10b981;
+  fill: none;
+  animation: strokeCircle 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+.checkmark-check {
+  transform-origin: 50% 50%;
+  stroke-dasharray: 48;
+  stroke-dashoffset: 48;
+  stroke-width: 3.5;
+  stroke: #10b981;
+  animation: strokeCheck 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.6s forwards;
+}
+
+@keyframes strokeCircle {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes strokeCheck {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fillCheck {
+  100% {
+    box-shadow: inset 0px 0px 0px 36px rgba(16, 185, 129, 0.08);
+  }
+}
+
+@keyframes scaleCheck {
+  0%, 100% {
+    transform: none;
+  }
+  50% {
+    transform: scale3d(1.08, 1.08, 1);
+  }
 }
 
 .conf-badge {

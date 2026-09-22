@@ -1,6 +1,10 @@
 /**
- * Interactive Rule-Based Plumbing Assistant Controller
- * Manages chat-style UI, decision progression, history, and the result screen.
+ * Interactive Rule-Based Plumbing Assistant Controller — Valvoro UK Edition
+ * Features:
+ * - Visual step progress indicator (Step 1 of 4 • ●━━○━━○━━○)
+ * - Smooth question transitions
+ * - Staggered recommendation card reveal
+ * - Quick start-over capability
  */
 class PlumbingAssistant {
   constructor(containerId, rules, config) {
@@ -25,9 +29,23 @@ class PlumbingAssistant {
     this.container.innerHTML = `
       <div class="assistant-card" id="assistantCard">
         <div class="assistant-header">
-          <div class="assistant-header-badge">
-            <span class="pulse-dot"></span>
-            <span>Interactive Diagnostic Assistant</span>
+          <div class="assistant-header-top">
+            <div class="assistant-header-badge">
+              <span class="pulse-dot"></span>
+              <span>Interactive UK Triage Assistant</span>
+            </div>
+            <div class="assistant-step-tracker" id="assistantStepTracker">
+              <span id="stepTrackerText">Step 1 of 4</span>
+              <div class="step-dots-visual" id="stepDotsVisual">
+                <span class="dot active"></span>
+                <span class="dot-line"></span>
+                <span class="dot"></span>
+                <span class="dot-line"></span>
+                <span class="dot"></span>
+                <span class="dot-line"></span>
+                <span class="dot"></span>
+              </div>
+            </div>
           </div>
           <h3 class="assistant-title">🔧 Plumbing Assistant</h3>
           <p class="assistant-subtitle">Tell us what's happening and we'll help you figure out the next step.</p>
@@ -39,7 +57,7 @@ class PlumbingAssistant {
         </div>
 
         <div class="assistant-footer">
-          <span class="assistant-footer-note">Rule-based preliminary guidance • Fast & confidential</span>
+          <span class="assistant-footer-note">Rule-based preliminary triage • Immediate safety guidance</span>
           <button type="button" class="btn-text" id="assistantRestartBtn" style="display: none;">
             🔄 Start Over
           </button>
@@ -51,6 +69,24 @@ class PlumbingAssistant {
     if (restartBtn) {
       restartBtn.addEventListener("click", () => this.restart());
     }
+  }
+
+  updateProgressIndicator(stepNum) {
+    const trackerText = document.getElementById("stepTrackerText");
+    const dotsVisual = document.getElementById("stepDotsVisual");
+    if (!trackerText || !dotsVisual) return;
+
+    const boundedStep = Math.min(Math.max(stepNum, 1), 4);
+    trackerText.textContent = `Step ${boundedStep} of 4`;
+
+    const dots = dotsVisual.querySelectorAll(".dot");
+    dots.forEach((dot, index) => {
+      if (index + 1 <= boundedStep) {
+        dot.classList.add("active");
+      } else {
+        dot.classList.remove("active");
+      }
+    });
   }
 
   goToQuestion(questionId) {
@@ -66,6 +102,7 @@ class PlumbingAssistant {
       window.trackEvent("assistant_started", { initialQuestion: questionId });
     }
 
+    this.updateProgressIndicator(this.history.length + 1);
     this.renderQuestion(question);
   }
 
@@ -78,7 +115,7 @@ class PlumbingAssistant {
       restartBtn.style.display = this.history.length > 0 ? "inline-flex" : "none";
     }
 
-    // Add assistant chat bubble
+    // Add assistant chat bubble with fade-in-up animation
     const msgDiv = document.createElement("div");
     msgDiv.className = "chat-bubble assistant-bubble animate-fade-in";
     msgDiv.innerHTML = `
@@ -104,7 +141,7 @@ class PlumbingAssistant {
         <span class="opt-label">${opt.label}</span>
         <span class="opt-arrow">→</span>
       `;
-      btn.addEventListener("click", () => this.handleOptionSelect(question, opt));
+      btn.addEventListener("click", () => this.handleOptionSelect(question, opt, btn));
       optionsGrid.appendChild(btn);
     });
 
@@ -112,9 +149,14 @@ class PlumbingAssistant {
     this.scrollToBottom();
   }
 
-  handleOptionSelect(question, option) {
+  handleOptionSelect(question, option, clickedBtn) {
     const messagesEl = document.getElementById("assistantMessages");
     const optionsEl = document.getElementById("assistantOptionsContainer");
+
+    // Add selection highlight effect
+    if (clickedBtn) {
+      clickedBtn.classList.add("selected-glow");
+    }
 
     // Add user response bubble to chat
     const userMsg = document.createElement("div");
@@ -127,7 +169,6 @@ class PlumbingAssistant {
     `;
     messagesEl.appendChild(userMsg);
 
-    // Save to history
     this.history.push({
       questionId: question.id,
       questionText: question.text,
@@ -143,12 +184,14 @@ class PlumbingAssistant {
       });
     }
 
-    // Clear option buttons while processing next step
+    // Clear options while advancing
     optionsEl.innerHTML = "";
 
-    // Check if option triggers a result or leads to next question
     if (option.result) {
-      this.showResult(option.result);
+      this.updateProgressIndicator(4);
+      setTimeout(() => {
+        this.showResult(option.result);
+      }, 350);
     } else if (option.next) {
       setTimeout(() => {
         this.goToQuestion(option.next);
@@ -158,7 +201,6 @@ class PlumbingAssistant {
 
   showResult(result) {
     this.isCompleted = true;
-    const optionsEl = document.getElementById("assistantOptionsContainer");
     const messagesEl = document.getElementById("assistantMessages");
     const restartBtn = document.getElementById("assistantRestartBtn");
 
@@ -174,9 +216,9 @@ class PlumbingAssistant {
     const resultCard = document.createElement("div");
     resultCard.className = "assistant-result-card animate-scale-up";
     
-    // Prepare dynamic WhatsApp URL
+    // UK WhatsApp message
     const waText = encodeURIComponent(
-      `Hi ${this.config.COMPANY_NAME || "Team"},\nI used your online Plumbing Assistant.\n\nRecommended: ${result.serviceName}\nUrgency: ${result.urgency}\nLocation: ${this.config.CITY}\n\nCan you help me arrange this?`
+      `Hi ${this.config.COMPANY_NAME || "Valvoro Team"},\nI used your online Plumbing Assistant.\n\nRecommended Service: ${result.serviceName}\nUrgency: ${result.urgency}\nLocation: ${this.config.CITY}\n\nCould you please help me arrange a plumber?`
     );
     const waUrl = `https://wa.me/${this.config.WHATSAPP_NUMBER}?text=${waText}`;
 
@@ -210,11 +252,11 @@ class PlumbingAssistant {
       ` : ""}
 
       <div class="result-actions">
-        <button type="button" class="btn btn-primary btn-cta" id="assistantBookBtn">
+        <button type="button" class="btn btn-cta" id="assistantBookBtn">
           📅 ${result.ctaLabel || "Book a Plumber"}
         </button>
         <a href="${waUrl}" target="_blank" rel="noopener" class="btn btn-whatsapp" id="assistantWhatsAppBtn">
-          💬 WhatsApp
+          💬 WhatsApp Enquiry
         </a>
         <a href="tel:${this.config.PHONE_RAW}" class="btn btn-outline" id="assistantCallBtn">
           📞 Call Now
@@ -222,14 +264,14 @@ class PlumbingAssistant {
       </div>
 
       <div class="result-disclaimer">
-        ⚠️ <strong>Important Notice:</strong> This assistant provides general guidance and does not replace an in-person professional inspection.
+        ⚠️ <strong>Important UK Notice:</strong> This assistant provides general preliminary guidance and does not replace an in-person professional inspection by a certified engineer.
       </div>
     `;
 
     messagesEl.appendChild(resultCard);
     this.scrollToBottom();
 
-    // Bind action to open the booking system pre-filled
+    // Bind action to open booking modal with pre-filled service and urgency
     const bookBtn = resultCard.querySelector("#assistantBookBtn");
     if (bookBtn) {
       bookBtn.addEventListener("click", () => {
@@ -237,7 +279,7 @@ class PlumbingAssistant {
           window.openBookingModal({
             serviceId: result.serviceId,
             urgency: result.urgencyValue || "today",
-            problemNotes: `Identified via Assistant: ${result.serviceName}. Issue context: ${result.why}`
+            problemNotes: `Identified via Assistant: ${result.serviceName}. Context: ${result.why}`
           });
         }
       });
@@ -272,5 +314,4 @@ window.initPlumbingAssistant = function(containerId) {
   if (typeof ASSISTANT_RULES !== "undefined" && typeof SITE_CONFIG !== "undefined") {
     return new PlumbingAssistant(containerId, ASSISTANT_RULES, SITE_CONFIG);
   }
-  console.warn("Assistant rules or site config not loaded yet.");
 };

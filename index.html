@@ -223,34 +223,32 @@
           </div>
         </div>
 
-        <!-- Hero Side Quick Triage Card -->
-        <div class="hero-visual-card">
-          <div class="hero-card-header">
-            <div class="hero-card-icon">⚡</div>
-            <div>
-              <h3 class="hero-card-title">Need a Plumber Today?</h3>
-              <p class="hero-card-tag">Fast UK dispatch to your postcode</p>
-            </div>
+        <!-- Hero Photography & Floating Trust Card (Valvoro Style) -->
+        <div class="hero-image-container">
+          <div class="hero-floating-badge-top">
+            <span class="trust-star">⭐ 4.9/5</span>
+            <span>Over 2,400+ UK Homes Fixed</span>
           </div>
 
-          <div class="hero-quick-list">
-            <div class="hero-quick-item" onclick="if(window.openBookingModal) window.openBookingModal({ serviceId: 'emergency-plumbing', urgency: 'emergency' })" style="cursor: pointer;">
-              <span>🚨 Burst Pipe or Active Leak</span>
-              <span class="hero-quick-arrow">Book Now →</span>
-            </div>
-            <div class="hero-quick-item" onclick="if(window.openBookingModal) window.openBookingModal({ serviceId: 'boiler-heating', urgency: 'today' })" style="cursor: pointer;">
-              <span>🔥 Boiler Breakdown / No Heating</span>
-              <span class="hero-quick-arrow">Book Now →</span>
-            </div>
-            <div class="hero-quick-item" onclick="if(window.openBookingModal) window.openBookingModal({ serviceId: 'drain-cleaning', urgency: 'today' })" style="cursor: pointer;">
-              <span>🌀 Blocked Drain / Toilet Overflow</span>
-              <span class="hero-quick-arrow">Book Now →</span>
-            </div>
+          <div class="hero-main-photo-wrapper">
+            <img 
+              src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1000&q=80" 
+              alt="Certified professional UK plumber inspecting domestic pipework" 
+              class="hero-main-photo"
+              loading="eager"
+            />
+            <div class="hero-gradient-overlay"></div>
           </div>
 
-          <a href="#" class="btn btn-whatsapp dynamic-whatsapp-link" style="width: 100%;">
-            💬 Chat on WhatsApp with UK Dispatch
-          </a>
+          <div class="hero-floating-trust-card">
+            <div class="floating-card-text">
+              <span class="floating-card-heading">Need a plumber?</span>
+              <span class="floating-card-sub">Get help today across the UK</span>
+            </div>
+            <button type="button" class="btn btn-cta floating-card-btn" onclick="if(window.openBookingModal) window.openBookingModal()">
+              Book a Plumber
+            </button>
+          </div>
         </div>
       </div>
     </section>

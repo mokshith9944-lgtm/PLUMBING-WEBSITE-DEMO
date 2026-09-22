@@ -1,13 +1,14 @@
 /**
  * Valvoro-Inspired UI Component Styles — UK Edition
- * Header, Hero, Top Bar, Service Cards, Slider, Carousel, FAQ, Postcode Pills, Footer.
+ * High-res photography, hero visuals, floating trust cards,
+ * card zoom interactions, before/after slider, and micro-interactions.
  */
 
 /* ==========================================
-   1. TOP INFO BAR (UK Professional)
+   1. TOP INFO BAR
    ========================================== */
 .top-bar {
-  background-color: var(--color-navy);
+  background-color: var(--color-navy-dark);
   color: #a0aec0;
   font-size: 0.85rem;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -44,14 +45,15 @@
 .top-bar-badge {
   background-color: rgba(48, 195, 235, 0.15);
   color: var(--color-primary);
-  font-weight: 700;
-  padding: 2px 10px;
+  font-weight: 800;
+  padding: 3px 12px;
   border-radius: var(--radius-full);
   font-size: 0.75rem;
+  border: 1px solid rgba(48, 195, 235, 0.3);
 }
 
 /* ==========================================
-   2. STICKY HEADER
+   2. STICKY HEADER & MICRO-INTERACTIONS
    ========================================== */
 .site-header {
   position: sticky;
@@ -63,10 +65,11 @@
   border-bottom: 1px solid var(--color-border);
   z-index: var(--z-header);
   transition: all var(--transition-fast);
+  animation: headerSlideDown 0.4s ease-out;
 }
 
 .site-header.scrolled {
-  box-shadow: 0 4px 20px rgba(9, 31, 65, 0.08);
+  box-shadow: 0 6px 24px rgba(9, 31, 65, 0.08);
   background-color: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(10px);
 }
@@ -83,7 +86,7 @@
   align-items: center;
   gap: 12px;
   font-size: 1.35rem;
-  font-weight: 800;
+  font-weight: 900;
   color: var(--color-navy);
 }
 
@@ -97,7 +100,12 @@
   color: var(--color-navy);
   border-radius: var(--radius-md);
   font-size: 1.35rem;
-  box-shadow: 0 4px 12px rgba(48, 195, 235, 0.3);
+  box-shadow: 0 4px 14px rgba(48, 195, 235, 0.3);
+  transition: transform var(--transition-normal);
+}
+
+.header-logo:hover .header-logo-icon {
+  transform: rotate(15deg) scale(1.05);
 }
 
 .header-nav {
@@ -115,7 +123,7 @@
 }
 
 .nav-link:hover {
-  color: var(--color-primary-hover);
+  color: #0c88a8;
 }
 
 .nav-link::after {
@@ -137,7 +145,7 @@
 .header-actions {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
 }
 
 .header-phone-box {
@@ -156,24 +164,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
+  transition: transform var(--transition-normal);
 }
 
-.header-phone-meta {
-  display: flex;
-  flex-direction: column;
+.header-phone-box:hover .header-phone-icon {
+  animation: phoneWiggle 0.6s ease;
 }
 
 .phone-subtitle {
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 800;
   color: var(--color-accent);
   text-transform: uppercase;
 }
 
 .header-phone-link {
   font-weight: 800;
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: var(--color-navy);
 }
 
@@ -256,7 +264,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(9, 31, 65, 0.6);
+  background: rgba(9, 31, 65, 0.65);
   backdrop-filter: blur(4px);
   z-index: var(--z-modal);
   opacity: 0;
@@ -270,23 +278,24 @@
 }
 
 /* ==========================================
-   3. VALVORO-INSPIRED HERO SECTION
+   3. VISUAL HERO SECTION & HERO PHOTO
    ========================================== */
 .hero-section {
   padding-top: 60px;
-  padding-bottom: 80px;
-  background: linear-gradient(180deg, #FFFFFF 0%, #f4f8fb 100%);
+  padding-bottom: 84px;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F7FAFC 100%);
   position: relative;
   overflow: hidden;
 }
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.18fr 0.82fr;
+  grid-template-columns: 1.15fr 0.85fr;
   gap: 48px;
   align-items: center;
 }
 
+/* Hero Entrance Sequence */
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -299,6 +308,7 @@
   font-size: 0.875rem;
   font-weight: 800;
   margin-bottom: 22px;
+  animation: heroFadeUp 0.4s ease-out 0.05s both;
 }
 
 .hero-headline {
@@ -308,6 +318,7 @@
   color: var(--color-navy);
   margin-bottom: 22px;
   letter-spacing: -0.025em;
+  animation: heroFadeUp 0.5s ease-out 0.15s both;
 }
 
 .hero-headline .highlight-cyan {
@@ -323,6 +334,7 @@
   line-height: 1.65;
   margin-bottom: 34px;
   max-width: 580px;
+  animation: heroFadeUp 0.5s ease-out 0.25s both;
 }
 
 .hero-ctas-group {
@@ -330,6 +342,7 @@
   flex-wrap: wrap;
   gap: 14px;
   margin-bottom: 38px;
+  animation: heroFadeUp 0.5s ease-out 0.35s both;
 }
 
 .hero-trust-indicators {
@@ -339,6 +352,7 @@
   padding-top: 26px;
   border-top: 1px solid var(--color-border);
   max-width: 560px;
+  animation: heroFadeUp 0.5s ease-out 0.45s both;
 }
 
 .trust-item {
@@ -363,92 +377,110 @@
   font-size: 0.85rem;
 }
 
-/* Hero Side Visual Card (Valvoro Clean Aesthetic) */
-.hero-visual-card {
-  background: #ffffff;
-  border-radius: var(--radius-lg);
-  padding: 36px 32px;
-  box-shadow: 0 20px 45px rgba(9, 31, 65, 0.1);
-  border: 1px solid rgba(48, 195, 235, 0.25);
+/* Hero Photography & Floating Trust Card */
+.hero-image-container {
   position: relative;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  animation: heroImageScale 0.65s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
 }
 
-.hero-visual-card::before {
-  content: "";
+.hero-main-photo-wrapper {
+  position: relative;
+  width: 100%;
+  height: 480px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 24px 56px rgba(9, 31, 65, 0.16);
+  border: 3px solid #ffffff;
+}
+
+.hero-main-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.8s ease;
+}
+
+.hero-image-container:hover .hero-main-photo {
+  transform: scale(1.03);
+}
+
+.hero-gradient-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 6px;
-  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);
-  border-top-left-radius: var(--radius-lg);
-  border-top-right-radius: var(--radius-lg);
+  height: 100%;
+  background: linear-gradient(180deg, rgba(9, 31, 65, 0.1) 0%, rgba(9, 31, 65, 0.65) 100%);
+  pointer-events: none;
 }
 
-.hero-card-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 22px;
-}
-
-.hero-card-icon {
-  width: 52px;
-  height: 52px;
+/* Floating Trust Card over Hero */
+.hero-floating-trust-card {
+  position: absolute;
+  bottom: 24px;
+  left: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(12px);
+  padding: 18px 22px;
   border-radius: var(--radius-md);
-  background-color: var(--color-primary-light);
-  color: var(--color-navy);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.6rem;
-}
-
-.hero-card-title {
-  font-size: 1.35rem;
-  font-weight: 800;
-  color: var(--color-navy);
-}
-
-.hero-card-tag {
-  font-size: 0.85rem;
-  color: var(--color-text-body);
-}
-
-.hero-quick-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 24px;
-}
-
-.hero-quick-item {
+  box-shadow: 0 12px 32px rgba(9, 31, 65, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 18px;
-  border-radius: var(--radius-sm);
-  background-color: var(--color-secondary);
-  border: 1px solid var(--color-border);
-  font-size: 0.95rem;
-  font-weight: 700;
+  gap: 16px;
+  animation: floatHeroCard 4s ease-in-out infinite alternate;
+}
+
+.floating-card-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.floating-card-heading {
+  font-size: 1.05rem;
+  font-weight: 900;
   color: var(--color-navy);
-  transition: all var(--transition-fast);
 }
 
-.hero-quick-item:hover {
-  background-color: var(--color-primary-light);
-  border-color: var(--color-primary);
-  transform: translateX(4px);
+.floating-card-sub {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-accent);
 }
 
-.hero-quick-arrow {
-  color: var(--color-primary);
+.floating-card-btn {
+  padding: 10px 18px;
+  font-size: 0.9rem;
   font-weight: 800;
+  white-space: nowrap;
+}
+
+/* Floating Badge top-right */
+.hero-floating-badge-top {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  background: #ffffff;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(9, 31, 65, 0.14);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--color-navy);
 }
 
 /* ==========================================
-   4. SERVICES GRID (Valvoro Style)
+   4. SERVICES GRID WITH PHOTOGRAPHY
    ========================================== */
 .services-grid {
   display: grid;
@@ -459,7 +491,6 @@
 .service-card {
   background-color: #ffffff;
   border-radius: var(--radius-lg);
-  padding: 32px;
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-sm);
   transition: all var(--transition-normal);
@@ -472,50 +503,72 @@
 
 .service-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(9, 31, 65, 0.12);
-  border-color: rgba(48, 195, 235, 0.4);
+  box-shadow: 0 20px 40px rgba(9, 31, 65, 0.12);
+  border-color: rgba(48, 195, 235, 0.45);
 }
 
-.service-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+.service-card-img-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background-color: #e2e8f0;
 }
 
-.service-card-icon {
-  width: 58px;
-  height: 58px;
-  border-radius: var(--radius-md);
-  background-color: var(--color-primary-light);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.85rem;
+.service-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.service-card:hover .service-card-img {
+  transform: scale(1.07);
 }
 
 .service-card-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
   font-size: 0.75rem;
   font-weight: 800;
   padding: 4px 12px;
   border-radius: var(--radius-full);
-  background-color: var(--color-secondary);
-  color: var(--color-navy);
-  border: 1px solid var(--color-border);
+  background-color: rgba(9, 31, 65, 0.85);
+  color: #ffffff;
+  backdrop-filter: blur(4px);
+}
+
+.service-card-body {
+  padding: 26px 28px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.service-card-header-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.service-card-icon {
+  font-size: 1.6rem;
+  line-height: 1;
 }
 
 .service-card-title {
-  font-size: 1.35rem;
+  font-size: 1.3rem;
   font-weight: 800;
   color: var(--color-navy);
-  margin-bottom: 12px;
 }
 
 .service-card-desc {
   font-size: 0.95rem;
   color: var(--color-text-body);
   line-height: 1.6;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   flex-grow: 1;
 }
 
@@ -526,7 +579,7 @@
   padding: 8px 14px;
   background-color: var(--color-secondary);
   border-radius: var(--radius-sm);
-  margin-bottom: 22px;
+  margin-bottom: 20px;
   border-left: 3px solid var(--color-primary);
 }
 
@@ -543,6 +596,7 @@
   font-size: 0.9rem;
   font-weight: 700;
   color: #0c88a8;
+  transition: color var(--transition-fast);
 }
 
 .service-explore-btn:hover {
@@ -563,6 +617,7 @@
 .btn-card-book:hover {
   background-color: var(--color-primary);
   color: var(--color-navy);
+  box-shadow: 0 4px 12px rgba(48, 195, 235, 0.3);
 }
 
 /* ==========================================
@@ -1116,7 +1171,7 @@
   line-height: 1.6;
 }
 
-/* Emergency Banner Section */
+/* Emergency Banner Section with Subtle Pulse Animation */
 .emergency-banner-section {
   background: linear-gradient(135deg, var(--color-navy-dark) 0%, var(--color-navy) 100%);
   color: #ffffff;
@@ -1125,6 +1180,7 @@
   position: relative;
   overflow: hidden;
   box-shadow: 0 20px 48px rgba(9, 31, 65, 0.2);
+  border: 1px solid rgba(48, 195, 235, 0.2);
 }
 
 .emergency-banner-section::before {
@@ -1132,9 +1188,10 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 300px;
+  width: 320px;
   height: 100%;
-  background: radial-gradient(circle, rgba(48, 195, 235, 0.15) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(48, 195, 235, 0.18) 0%, transparent 70%);
+  pointer-events: none;
 }
 
 .emergency-banner-content {
@@ -1298,7 +1355,7 @@
 }
 
 /* ==========================================
-   13. FOOTER (Valvoro Style)
+   13. FOOTER
    ========================================== */
 .site-footer {
   background-color: var(--color-navy-dark);
@@ -1373,3 +1430,48 @@
   font-size: 0.85rem;
   color: #718096;
 }
+
+/* ==========================================
+   KEYFRAME ANIMATIONS & SCROLL UTILITIES
+   ========================================= */
+@keyframes headerSlideDown {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes heroFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes heroImageScale {
+  from { opacity: 0; transform: scale(0.94) translateY(24px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes floatHeroCard {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+@keyframes phoneWiggle {
+  0%, 100% { transform: rotate(0); }
+  20%, 60% { transform: rotate(-15deg); }
+  40%, 80% { transform: rotate(15deg); }
+}
+
+/* Scroll Triggered Reveals */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.5s ease-out, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stagger-1 { transition-delay: 0.08s; }
+.stagger-2 { transition-delay: 0.16s; }
+.stagger-3 { transition-delay: 0.24s; }
