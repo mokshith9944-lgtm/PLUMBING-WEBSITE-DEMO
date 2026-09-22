@@ -1,11 +1,11 @@
 /**
- * Base Styles, Reset, Typography & Valvoro Design System
- * Primary: #30C3EB (Bright Cyan)
- * Dark Navy: #091F41
- * Background: #F7FAFC
- * Body Text: #696969
- * Accent: #FF7A45 (Valvoro Orange)
+ * Base Styles, Reset, Typography & Design Tokens
+ * Architecture Inspired by Pipe Up (Clean Geometric Modernism)
+ * Palette: Royal Cobalt (#1E40AF), Obsidian Midnight (#0B132B), Amber-Coral (#FF5722)
  */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800;900&display=swap');
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -37,7 +37,7 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--color-text-main);
   font-family: var(--font-heading);
   font-weight: 800;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.02em;
 }
 
 img, svg {
@@ -79,8 +79,8 @@ ul, ol {
 
 /* Section Spacing */
 .section {
-  padding-top: 88px;
-  padding-bottom: 88px;
+  padding-top: 84px;
+  padding-bottom: 84px;
 }
 
 .section-alt {
@@ -89,8 +89,8 @@ ul, ol {
 
 .section-header {
   text-align: center;
-  max-width: 740px;
-  margin: 0 auto 52px;
+  max-width: 760px;
+  margin: 0 auto 48px;
 }
 
 .section-tag {
@@ -99,19 +99,19 @@ ul, ol {
   gap: 6px;
   padding: 6px 16px;
   background-color: var(--color-primary-light);
-  color: #0c88a8;
-  font-size: 0.85rem;
-  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 0.82rem;
+  font-weight: 800;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   border-radius: var(--radius-full);
   margin-bottom: 14px;
-  border: 1px solid rgba(48, 195, 235, 0.25);
+  border: 1px solid var(--color-primary-border);
 }
 
 .section-title {
-  font-size: 2.35rem;
-  font-weight: 800;
+  font-size: 2.45rem;
+  font-weight: 900;
   color: var(--color-navy);
   line-height: var(--line-height-tight);
   margin-bottom: 16px;
@@ -124,7 +124,7 @@ ul, ol {
 }
 
 /* ==========================================
-   VALVORO BUTTONS & CTAs
+   BUTTONS & CTAs (Pipe Up Architecture)
    ========================================== */
 .btn {
   display: inline-flex;
@@ -145,27 +145,28 @@ ul, ol {
   transform: translateY(1px);
 }
 
-/* Primary Cyan Button */
+/* Primary Cobalt Button */
 .btn-primary {
   background-color: var(--color-primary);
-  color: var(--color-navy);
-  box-shadow: 0 4px 14px rgba(48, 195, 235, 0.35);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(30, 64, 175, 0.28);
 }
 
 .btn-primary:hover {
   background-color: var(--color-primary-hover);
   color: #ffffff;
-  box-shadow: 0 6px 20px rgba(48, 195, 235, 0.45);
+  box-shadow: 0 6px 20px rgba(30, 64, 175, 0.38);
   transform: translateY(-2px);
 }
 
-/* Valvoro Orange High-Conversion Animated CTA */
+/* High-Conversion Amber Coral CTA Button with Pulse */
 .btn-cta {
-  background: linear-gradient(135deg, #FF8D5C 0%, #FF7A45 100%);
+  background: linear-gradient(135deg, #FF6B35 0%, #FF5722 100%);
   color: #ffffff;
-  box-shadow: 0 6px 18px rgba(255, 122, 69, 0.35);
+  box-shadow: 0 6px 20px rgba(255, 87, 34, 0.35);
   position: relative;
   overflow: hidden;
+  font-weight: 800;
 }
 
 .btn-cta::after {
@@ -175,19 +176,36 @@ ul, ol {
   left: -100%;
   width: 50%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
   transform: skewX(-20deg);
   transition: left 0.75s ease;
 }
 
 .btn-cta:hover {
-  background: linear-gradient(135deg, #FF7A45 0%, #e8632e 100%);
-  box-shadow: 0 8px 24px rgba(255, 122, 69, 0.45);
+  background: linear-gradient(135deg, #FF5722 0%, #E64A19 100%);
+  box-shadow: 0 8px 26px rgba(255, 87, 34, 0.45);
   transform: translateY(-2px);
 }
 
 .btn-cta:hover::after {
   left: 150%;
+}
+
+/* Pipe Up Ripple Pulse Animation */
+[data-pulse="true"] {
+  animation: pulseRipple 1.8s infinite cubic-bezier(0.25, 0, 0, 1);
+}
+
+@keyframes pulseRipple {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 87, 34, 0.5), 0 6px 20px rgba(255, 87, 34, 0.35);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(255, 87, 34, 0), 0 6px 20px rgba(255, 87, 34, 0.35);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 87, 34, 0), 0 6px 20px rgba(255, 87, 34, 0.35);
+  }
 }
 
 /* WhatsApp Button */
@@ -208,6 +226,7 @@ ul, ol {
   border: 2px solid var(--color-navy);
   color: var(--color-navy);
   background-color: transparent;
+  font-weight: 700;
 }
 
 .btn-outline:hover {
@@ -222,25 +241,13 @@ ul, ol {
   color: var(--color-navy);
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-sm);
+  font-weight: 700;
 }
 
 .btn-secondary:hover {
   background-color: var(--color-primary-light);
-  border-color: var(--color-primary);
-  color: var(--color-navy);
-}
-
-/* Text Link Button */
-.btn-text {
-  padding: 8px 12px;
-  color: var(--color-text-body);
-  font-size: 0.9rem;
-  font-weight: 700;
-}
-
-.btn-text:hover {
-  color: var(--color-navy);
-  text-decoration: underline;
+  border-color: var(--color-primary-border);
+  color: var(--color-primary);
 }
 
 /* Emergency Call Button */
@@ -250,11 +257,11 @@ ul, ol {
   gap: 8px;
   background-color: var(--color-accent);
   color: #ffffff;
-  padding: 12px 22px;
+  padding: 14px 26px;
   border-radius: var(--radius-sm);
   font-weight: 800;
-  font-size: 0.95rem;
-  box-shadow: 0 4px 14px rgba(255, 122, 69, 0.35);
+  font-size: 1rem;
+  box-shadow: 0 6px 20px rgba(255, 87, 34, 0.35);
   transition: all var(--transition-normal);
 }
 
@@ -288,13 +295,13 @@ ul, ol {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background-color: var(--color-primary);
-  box-shadow: 0 0 0 0 rgba(48, 195, 235, 0.7);
-  animation: pulsingCyan 2s infinite;
+  background-color: var(--color-accent);
+  box-shadow: 0 0 0 0 rgba(255, 87, 34, 0.7);
+  animation: pulsingAmber 2s infinite;
 }
 
-@keyframes pulsingCyan {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(48, 195, 235, 0.7); }
-  70% { transform: scale(1); box-shadow: 0 0 0 7px rgba(48, 195, 235, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(48, 195, 235, 0); }
+@keyframes pulsingAmber {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 87, 34, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(255, 87, 34, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 87, 34, 0); }
 }

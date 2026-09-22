@@ -1,63 +1,71 @@
 /**
  * CSS Design System & Variables
- * Valvoro-inspired UK Plumbing & Heating Palette:
- * Primary: Bright Cyan (#30C3EB)
- * Dark Navy: #091F41
- * Background: #F7FAFC
- * White: #FFFFFF
- * Text: #696969
- * CTA Accent: #FF7A45
+ * Modern UK Plumbing & Heating Architecture (Pipe Up Inspired Architecture)
+ * Distinct, High-Converting Palette:
+ * - Primary Brand: Royal Cobalt (#1E40AF / #2563EB)
+ * - Deep Contrast: Obsidian Midnight Navy (#0B132B)
+ * - Conversion Accent: Vivid Amber-Coral (#FF5722 / #FF6B35)
+ * - Success / Trust: Emerald Mint (#10B981)
+ * - Surfaces: Slate Crisp (#F8FAFC, #FFFFFF)
+ * - Body Text: Slate Charcoal (#475569)
  */
 :root {
-  /* Brand Colours (Valvoro Palette) */
-  --color-primary: #30C3EB;        /* Bright Cyan / Sky Blue */
-  --color-primary-hover: #21b2d9;  /* Deep Cyan */
-  --color-primary-light: #e6f9fd;  /* Cyan Tint */
-  --color-navy: #091F41;           /* Deep Navy */
-  --color-navy-light: #122d56;     /* Slate Navy */
-  --color-navy-dark: #051329;      /* Ultra Deep Navy */
-  --color-secondary: #F7FAFC;      /* Clean Light Grey Background */
-  --color-secondary-alt: #edf2f7;  /* Border / Card Grey */
-  --color-accent: #FF7A45;         /* Valvoro CTA Warm Orange */
-  --color-accent-hover: #e8632e;   /* Deep Orange */
-  --color-accent-light: #fff3ee;   /* Soft Orange Tint */
-  --color-success: #10B981;        /* Reassuring Green */
-  --color-success-light: #ecfdf5;  /* Soft Green */
+  /* Brand Colours */
+  --color-primary: #1E40AF;        /* Deep Royal Cobalt */
+  --color-primary-hover: #1D4ED8;  /* Vibrant Cobalt */
+  --color-primary-light: #EFF6FF;  /* Ice Cobalt Tint */
+  --color-primary-border: #BFDBFE; /* Subtle Blue Border */
+
+  --color-navy: #0B132B;           /* Obsidian Midnight Navy */
+  --color-navy-light: #1C2541;     /* Slate Navy */
+  --color-navy-dark: #070B19;      /* Deepest Black-Blue */
+
+  --color-secondary: #F8FAFC;      /* Clean Slate-50 Background */
+  --color-secondary-alt: #F1F5F9;  /* Soft Slate-100 Container */
+
+  --color-accent: #FF5722;         /* High-Visibility Amber Coral */
+  --color-accent-hover: #E64A19;   /* Deep Flame Amber */
+  --color-accent-light: #FFF7ED;   /* Warm Coral Tint */
+  --color-accent-border: #FFEDD5;  /* Subtle Coral Border */
+
+  --color-success: #10B981;        /* Emerald Mint */
+  --color-success-light: #ECFDF5;  /* Mint Tint */
   --color-danger: #EF4444;         /* Urgent Red */
-  --color-danger-light: #fef2f2;   /* Soft Red */
-  
-  /* Neutral Typography */
-  --color-text-main: #091F41;      /* Headings & High Contrast Text */
-  --color-text-body: #696969;      /* Valvoro Body Text (#696969) */
-  --color-text-muted: #718096;     /* Subdued Text */
-  --color-text-light: #a0aec0;     /* Placeholder / Microcopy */
-  --color-border: #E2E8F0;         /* Crisp Border */
-  --color-border-dark: #cbd5e0;
+  --color-danger-light: #FEF2F2;   /* Soft Red Tint */
+
+  /* Neutral Typography & Surface Tokens */
+  --color-text-main: #0B132B;      /* Headlines & High Contrast */
+  --color-text-body: #475569;      /* High Readability Slate Copy */
+  --color-text-muted: #64748B;     /* Subdued Metadata */
+  --color-text-light: #94A3B8;     /* Microcopy / Placeholders */
+  --color-border: #E2E8F0;         /* Crisp Slate-200 Border */
+  --color-border-dark: #CBD5E1;    /* Slate-300 Border */
   --color-card-bg: #FFFFFF;
   --color-whatsapp: #25D366;
-  --color-whatsapp-hover: #1ebc59;
+  --color-whatsapp-hover: #1EBC59;
 
   /* Typography */
-  --font-heading: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-body: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-heading: "Outfit", "Inter Tight", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --line-height-base: 1.6;
-  --line-height-tight: 1.25;
+  --line-height-tight: 1.2;
 
   /* Layout & Spacing */
-  --max-width-container: 1200px;
+  --max-width-container: 1240px;
   --topbar-height: 40px;
   --header-height: 80px;
   --mobile-bar-height: 68px;
   --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 20px;
+  --radius-md: 14px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
   --radius-full: 9999px;
 
-  /* Valvoro Soft Shadows */
-  --shadow-sm: 0 2px 4px rgba(9, 31, 65, 0.05);
-  --shadow-md: 0 8px 24px rgba(9, 31, 65, 0.08), 0 2px 6px rgba(9, 31, 65, 0.04);
-  --shadow-lg: 0 16px 36px rgba(9, 31, 65, 0.12), 0 4px 12px rgba(9, 31, 65, 0.06);
-  --shadow-xl: 0 24px 48px rgba(9, 31, 65, 0.16);
+  /* Layered Shadows */
+  --shadow-sm: 0 1px 3px rgba(11, 19, 43, 0.06), 0 1px 2px rgba(11, 19, 43, 0.04);
+  --shadow-md: 0 6px 18px rgba(11, 19, 43, 0.08), 0 2px 6px rgba(11, 19, 43, 0.04);
+  --shadow-lg: 0 16px 36px rgba(11, 19, 43, 0.1), 0 4px 12px rgba(11, 19, 43, 0.05);
+  --shadow-xl: 0 24px 54px rgba(11, 19, 43, 0.14), 0 8px 20px rgba(11, 19, 43, 0.06);
 
   /* Transitions */
   --transition-fast: 150ms ease;

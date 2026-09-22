@@ -135,7 +135,7 @@
 .service-choice-card.selected {
   border-color: var(--color-primary);
   background-color: var(--color-primary-light);
-  box-shadow: 0 0 0 2px rgba(48, 195, 235, 0.3);
+  box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.25);
 }
 
 .service-choice-icon {
@@ -395,7 +395,7 @@
 .date-card.selected {
   border-color: var(--color-primary);
   background-color: var(--color-primary-light);
-  box-shadow: 0 4px 14px rgba(48, 195, 235, 0.25);
+  box-shadow: 0 4px 14px rgba(30, 64, 175, 0.25);
 }
 
 .date-card.disabled {
@@ -493,7 +493,7 @@
 .slot-pill.selected {
   border-color: var(--color-primary);
   background-color: var(--color-primary-light);
-  box-shadow: 0 0 0 2px rgba(48, 195, 235, 0.3);
+  box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.25);
 }
 
 .slot-pill:disabled {
@@ -563,7 +563,7 @@
 .form-input:focus, .form-textarea:focus {
   outline: none;
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(48, 195, 235, 0.2);
+  box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.2);
 }
 
 .form-input.input-error, .form-textarea.input-error {
@@ -747,8 +747,8 @@
 
 .backend-disclaimer-box {
   background-color: var(--color-primary-light);
-  border: 1px solid rgba(48, 195, 235, 0.4);
-  color: #0c88a8;
+  border: 1px solid var(--color-primary-border);
+  color: var(--color-primary);
   padding: 16px 20px;
   border-radius: var(--radius-sm);
   font-size: 0.9rem;
@@ -834,11 +834,11 @@
   font-size: 0.9rem;
   font-weight: 800;
   background-color: var(--color-primary-light);
-  color: #0c88a8;
+  color: var(--color-primary);
   padding: 6px 18px;
   border-radius: var(--radius-full);
   margin-bottom: 16px;
-  border: 1px solid rgba(48, 195, 235, 0.35);
+  border: 1px solid var(--color-primary-border);
 }
 
 .conf-title {

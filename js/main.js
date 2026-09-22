@@ -1,7 +1,8 @@
 /**
- * Main Application Orchestrator — Valvoro UK Edition
+ * Main Application Orchestrator — UK Edition (Pipe Up Architecture)
  * Coordinates config hydration, responsive navigation, sticky header,
- * mobile action bar, CTA buttons, scroll animations, and initializes all modules.
+ * mobile action bar, stats counter ([data-countup]), accordion FAQ,
+ * scroll animations, and initializes all interactive modules.
  */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -17,7 +18,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // 4. Setup Scroll & Viewport Animations
   setupScrollAnimations();
 
-  // 5. Initialize Core Interactive Modules
+  // 5. Setup Animated Stats Counter Bar
+  setupCountUpAnimations();
+
+  // 6. Setup Pipe Up Accordion FAQ
+  setupAccordionFAQ();
+
+  // 7. Initialize Core Interactive Modules
   if (window.initPlumbingAssistant) {
     window.initPlumbingAssistant("assistantAppContainer");
   }
@@ -62,7 +69,7 @@ function hydrateSiteConfig() {
 
   // Replace dynamic WhatsApp links
   document.querySelectorAll(".dynamic-whatsapp-link").forEach((link) => {
-    const defaultMsg = encodeURIComponent(`Hi ${SITE_CONFIG.COMPANY_NAME || "Valvoro Team"},\nI would like to inquire about plumbing services in ${SITE_CONFIG.CITY}.`);
+    const defaultMsg = encodeURIComponent(`Hi ${SITE_CONFIG.COMPANY_NAME || "Dispatch Team"},\nI would like to inquire about plumbing services in ${SITE_CONFIG.CITY}.`);
     link.href = `https://wa.me/${SITE_CONFIG.WHATSAPP_NUMBER}?text=${defaultMsg}`;
     link.addEventListener("click", () => {
       if (window.trackEvent) window.trackEvent("whatsapp_click", { location: link.getAttribute("data-track-loc") || "general" });
@@ -143,16 +150,16 @@ function renderServiceAreas() {
   container.innerHTML = "";
   SITE_CONFIG.SERVICE_AREAS.forEach((area) => {
     const pill = document.createElement("div");
-    pill.className = "area-pill reveal-on-scroll";
+    pill.className = "postcode-pill reveal-on-scroll";
     pill.setAttribute("data-area-name", area.name);
     pill.innerHTML = `
-      <span class="area-pin">📍</span>
-      <div class="area-text-wrap">
-        <strong class="area-title">${area.name}</strong>
-        <span class="area-note">${area.note}</span>
-      </div>
-      <span class="area-check">✓ UK Coverage</span>
+      <span>📍 ${area.name} (${area.note})</span>
     `;
+    pill.addEventListener("click", () => {
+      if (window.openBookingModal) {
+        window.openBookingModal({ postcode: area.note.split(",")[0] || "" });
+      }
+    });
     container.appendChild(pill);
   });
 }
@@ -176,11 +183,11 @@ function setupNavigation() {
   }, { passive: true });
 
   const toggleMobileNav = (state) => {
-    const isOpen = typeof state === "boolean" ? state : !mobileNav.classList.contains("open");
-    mobileNav.classList.toggle("open", isOpen);
+    const isOpen = typeof state === "boolean" ? state : !mobileNav.classList.contains("active");
+    mobileNav.classList.toggle("active", isOpen);
     mobileOverlay.classList.toggle("active", isOpen);
     document.body.classList.toggle("modal-open", isOpen);
-    hamburger.setAttribute("aria-expanded", isOpen);
+    if (hamburger) hamburger.setAttribute("aria-expanded", isOpen);
   };
 
   if (hamburger) {
@@ -277,11 +284,106 @@ function setupActionTriggers() {
 }
 
 /**
+ * Animated Number Count-Up (Pipe Up style [data-countup])
+ */
+function setupCountUpAnimations() {
+  const elements = document.querySelectorAll("[data-countup]");
+  if (!elements.length) return;
+
+  const formatNumber = (num) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+  const animateCount = (el) => {
+    const target = parseInt(el.getAttribute("data-countup"), 10);
+    if (isNaN(target)) return;
+
+    const duration = 1800; // ms
+    const startTime = performance.now();
+
+    const updateCount = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const easeProgress = 1 - Math.pow(1 - progress, 3);
+      const currentVal = Math.round(easeProgress * target);
+
+      el.textContent = formatNumber(currentVal);
+
+      if (progress < 1) {
+        requestAnimationFrame(updateCount);
+      } else {
+        el.textContent = formatNumber(target);
+      }
+    };
+
+    requestAnimationFrame(updateCount);
+  };
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    elements.forEach((el) => observer.observe(el));
+  } else {
+    elements.forEach(animateCount);
+  }
+}
+
+/**
+ * Modern Accordion FAQ (Pipe Up style with animated height)
+ */
+function setupAccordionFAQ() {
+  const accordionItems = document.querySelectorAll(".pipeup-accordion-item");
+  if (!accordionItems.length) return;
+
+  accordionItems.forEach((item) => {
+    const question = item.querySelector(".pipeup-question");
+    const answer = item.querySelector(".pipeup-answer");
+
+    if (!question || !answer) return;
+
+    question.addEventListener("click", () => {
+      const isOpen = item.classList.contains("active");
+
+      // Close all other accordion items for clean single accordion mode
+      accordionItems.forEach((other) => {
+        if (other !== item && other.classList.contains("active")) {
+          other.classList.remove("active");
+          const otherAns = other.querySelector(".pipeup-answer");
+          if (otherAns) otherAns.style.maxHeight = null;
+        }
+      });
+
+      if (isOpen) {
+        item.classList.remove("active");
+        answer.style.maxHeight = null;
+      } else {
+        item.classList.add("active");
+        answer.style.maxHeight = answer.scrollHeight + 30 + "px";
+      }
+    });
+  });
+
+  // Open first accordion item by default
+  if (accordionItems[0]) {
+    const firstAnswer = accordionItems[0].querySelector(".pipeup-answer");
+    if (firstAnswer) {
+      accordionItems[0].classList.add("active");
+      firstAnswer.style.maxHeight = firstAnswer.scrollHeight + 30 + "px";
+    }
+  }
+}
+
+/**
  * Scroll-Triggered Viewport Animations
  */
 function setupScrollAnimations() {
   if (!("IntersectionObserver" in window)) {
-    // Fallback: make all visible if browser lacks observer
     document.querySelectorAll(".reveal-on-scroll").forEach(el => el.classList.add("is-visible"));
     return;
   }

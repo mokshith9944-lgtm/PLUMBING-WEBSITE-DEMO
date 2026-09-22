@@ -30,14 +30,14 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(48, 195, 235, 0.15);
+  background: var(--color-primary-light);
   color: var(--color-primary);
   padding: 4px 14px;
   border-radius: var(--radius-full);
   font-size: 0.8rem;
   font-weight: 800;
   margin-bottom: 12px;
-  border: 1px solid rgba(48, 195, 235, 0.3);
+  border: 1px solid var(--color-primary-border);
 }
 
 .assistant-title {
@@ -92,7 +92,7 @@
   justify-content: center;
   font-size: 1.35rem;
   flex-shrink: 0;
-  border: 1px solid rgba(48, 195, 235, 0.4);
+  border: 1px solid var(--color-primary-border);
 }
 
 .chat-avatar.user-avatar {
@@ -120,7 +120,7 @@
 .chat-author {
   font-size: 0.8rem;
   font-weight: 800;
-  color: #0c88a8;
+  color: var(--color-primary);
   margin-bottom: 4px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -180,7 +180,7 @@
   background-color: var(--color-primary-light);
   color: var(--color-navy);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(48, 195, 235, 0.15);
+  box-shadow: 0 8px 20px rgba(30, 64, 175, 0.15);
 }
 
 .opt-arrow {
@@ -217,7 +217,7 @@
   font-size: 0.85rem;
   font-weight: 800;
   background-color: var(--color-primary-light);
-  color: #0c88a8;
+  color: var(--color-primary);
   padding: 5px 14px;
   border-radius: var(--radius-full);
 }
